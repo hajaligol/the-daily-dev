@@ -6,6 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{{ article.title }} &mdash; The Daily Dev</title>
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<script>
+(function () {
+  try {
+    if (sessionStorage.getItem("fadeIn")) {
+      document.documentElement.classList.add("fade-in");
+      sessionStorage.removeItem("fadeIn");
+    }
+  } catch (e) {}
+})();
+</script>
 </head>
 <body>
 
@@ -182,5 +192,6 @@
 
 </div>
 
+<script src="{% static 'js/page-transitions.js' %}" defer></script>
 </body>
 </html>

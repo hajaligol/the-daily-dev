@@ -753,8 +753,8 @@ svg .soft {
   width: 38%;
   max-width: 150px;
   aspect-ratio: 4 / 4.6;
-  border: 1.6px solid var(--ink);
-  background: var(--paper-deep);
+  border: 2px solid var(--ink-faint);
+  /* background: var(--paper-deep); */
   padding: 4px;
   display: flex;
 }
@@ -1053,8 +1053,8 @@ svg .soft {
 
 .article-image-frame {
   display: block;
-  border: 1.8px solid var(--ink);
-  background: var(--paper-deep);
+  /* border: 1.8px solid var(--ink); */
+  /* background: var(--paper-deep); */
   padding: 10px;
 }
 
@@ -1099,9 +1099,9 @@ svg .soft {
   font-size: 3.2em;
   line-height: .82;
   padding: 3px 7px 0 3px;
-  margin: 2px 6px 0 0;
+  margin: 2px 3px 0 0;
   border: 1.3px solid var(--ink);
-  background: var(--paper-deep);
+  /* background: var(--paper-deep); */
 }
 
 .article-text .article-section-title {
@@ -1261,8 +1261,8 @@ a.nav-link:hover .nav-title {
   width: 46px;
   height: 46px;
   object-fit: contain;
-  border: 1.2px solid var(--ink);
-  background: var(--paper-deep);
+  border: 1.2px solid var(--ink-faint);
+  /* background: var(--paper-deep); */
   padding: 3px;
   filter: sepia(.06);
 }
@@ -1376,5 +1376,38 @@ a.nav-link:hover .nav-title {
 @media (max-width: 420px) {
   .article-hero {
     max-width: 280px;
+  }
+}
+
+/* ==========================================================================
+   14. PAGE FADE TRANSITIONS
+   The newspaper sheet fades out before leaving a page, and fades in as
+   the next page loads.
+   ========================================================================== */
+.newspaper {
+  opacity: 1;
+}
+
+.newspaper.fade-out {
+  animation: page-fade-out .28s ease forwards;
+}
+
+html.fade-in .newspaper {
+  animation: page-fade-in .32s ease both;
+}
+
+@keyframes page-fade-out {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes page-fade-in {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .newspaper {
+    animation: none !important;
   }
 }
