@@ -76,9 +76,7 @@
     </aside>
 
     <div class="article-body">
-      <article class="article-body-columns">
-        {{ article.content_before_hero|safe }}
-
+      <article class="article-copy">
         <figure class="article-hero">
           <div class="article-image-frame">
             <img class="article-image" src="{{ article.image.url }}" alt="{{ article.image_alt }}">
@@ -88,7 +86,9 @@
           {% endif %}
         </figure>
 
-        {{ article.content_after_hero|safe }}
+        <div class="article-text">
+          {{ article.content_html|safe }}
+        </div>
       </article>
     </div>
 
@@ -171,11 +171,11 @@
        ============================================================ -->
   <footer class="blog-footer article-detail-footer">
     <span class="hand hand-footer" aria-hidden="true">
-      <img src="{% static 'images/left-pointing-hand.webp' %}" alt="">
+      <img src="{% static 'images/right-pointing-hand.webp' %}" alt="">
     </span>
     <p class="blog-footer-text">New stories every week for curious minds</p>
     <span class="hand hand-footer" aria-hidden="true">
-      <img src="{% static 'images/right-pointing-hand.webp' %}" alt="">
+      <img src="{% static 'images/left-pointing-hand.webp' %}" alt="">
     </span>
     <span class="blog-footer-page">Page {{ article.page_reference }}</span>
   </footer>

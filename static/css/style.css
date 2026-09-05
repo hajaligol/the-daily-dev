@@ -1038,28 +1038,61 @@ svg .soft {
   color: var(--ink-soft);
 }
 
-/* ---- article body: CSS multi-column running text ---- */
+/* ---- article body: big top image, single-column running text ---- */
 .article-body {
   min-width: 0;
 }
 
-.article-body-columns {
-  column-count: 2;
-  column-gap: 30px;
+/* ---- hero image: large, centered, above the text ---- */
+.article-hero {
+  display: block;
+  max-width: 560px;
+  margin: 0 auto 24px;
+  text-align: center;
+}
+
+.article-image-frame {
+  display: block;
+  border: 1.8px solid var(--ink);
+  background: var(--paper-deep);
+  padding: 10px;
+}
+
+.article-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: sepia(.08);
+}
+
+.article-caption {
   font-family: var(--font-serif);
-  font-size: .85rem;
-  line-height: 1.54;
+  font-style: italic;
+  font-size: .78rem;
+  line-height: 1.4;
+  margin: 10px 0 0;
+  color: var(--ink-soft);
+}
+
+/* ---- article text: single column ---- */
+.article-text {
+  font-family: var(--font-serif);
+  font-size: .88rem;
+  line-height: 1.6;
   color: var(--ink);
   text-align: justify;
   hyphens: auto;
   -webkit-hyphens: auto;
+  max-width: 640px;
+  margin: 0 auto;
 }
 
-.article-body-columns p {
-  margin: 0 0 12px;
+.article-text p {
+  margin: 0 0 14px;
 }
 
-.article-body-columns .article-dropcap {
+.article-text .article-dropcap {
   float: left;
   font-family: var(--font-serif);
   font-weight: 1000;
@@ -1071,43 +1104,41 @@ svg .soft {
   background: var(--paper-deep);
 }
 
-.article-body-columns .article-section-title {
+.article-text .article-section-title {
   font-family: var(--font-serif);
   font-weight: 1000;
   text-transform: uppercase;
   text-align: center;
-  font-size: .9rem;
+  font-size: .95rem;
   letter-spacing: .04em;
   line-height: 1.25;
-  margin: 18px 0 2px;
-  break-after: avoid;
-  break-inside: avoid;
+  margin: 24px 0 4px;
   color: var(--ink);
 }
 
-.article-body-columns .article-section-title::after {
+.article-text .article-section-title::after {
   content: "";
   display: block;
-  width: 44px;
+  width: 48px;
   height: 1px;
   background: var(--ink-faint);
-  margin: 7px auto 0;
+  margin: 8px auto 0;
 }
 
-.article-body-columns ul {
-  margin: 0 0 12px;
+.article-text ul {
+  margin: 0 0 14px;
   padding-left: 2px;
   list-style: none;
 }
 
-.article-body-columns ul li {
+.article-text ul li {
   position: relative;
-  padding-left: 17px;
-  margin-bottom: 5px;
+  padding-left: 19px;
+  margin-bottom: 6px;
   text-align: left;
 }
 
-.article-body-columns ul li::before {
+.article-text ul li::before {
   content: "\2726";
   position: absolute;
   left: 0;
@@ -1116,62 +1147,23 @@ svg .soft {
   color: var(--ink);
 }
 
-.article-body-columns code {
+.article-text code {
   font-family: "Courier New", Courier, monospace;
   font-size: .92em;
   background: var(--paper-deep);
   padding: 0 3px;
 }
 
-/* ---- hero image + pull quote: break out of the two columns ---- */
-.article-hero,
+/* ---- pull quote ---- */
 .article-pullquote {
-  column-span: all;
-  break-inside: avoid;
-}
-
-.article-hero {
-  margin: 6px 0 18px;
-  text-align: center;
-}
-
-.article-image-frame {
-  display: inline-block;
-  border: 1.6px solid var(--ink);
-  background: var(--paper-deep);
-  padding: 8px;
-  max-width: 480px;
-  width: 100%;
-}
-
-.article-image {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-height: 340px;
-  object-fit: contain;
-  filter: sepia(.08);
-}
-
-.article-caption {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: .78rem;
-  line-height: 1.4;
-  margin: 10px auto 0;
-  max-width: 440px;
-  color: var(--ink-soft);
-}
-
-.article-pullquote {
-  margin: 8px 0 20px;
-  padding: 14px 6px;
+  margin: 12px 0 22px;
+  padding: 16px 6px;
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
   text-align: center;
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: clamp(1.05rem, 2.1vw, 1.3rem);
+  font-size: clamp(1.1rem, 2.4vw, 1.4rem);
   line-height: 1.42;
   color: var(--ink);
 }
@@ -1346,8 +1338,7 @@ a.nav-link:hover .nav-title {
 }
 
 @media (max-width: 620px) {
-  .article-body-columns {
-    column-count: 1;
+  .article-text {
     text-align: left;
     hyphens: none;
     -webkit-hyphens: none;
@@ -1383,7 +1374,7 @@ a.nav-link:hover .nav-title {
 }
 
 @media (max-width: 420px) {
-  .article-image-frame {
-    max-width: 100%;
+  .article-hero {
+    max-width: 280px;
   }
 }

@@ -5,10 +5,10 @@ from django.utils.html import strip_tags
 from django.utils.text import slugify
 
 # Marker used inside `Article.content` to say "the hero image + caption goes
-# here". Keeping this in the content field (rather than hard-coding the image
-# markup in the template) means the article body stays a single source of
-# truth, while the actual <img> tag is still rendered from the real
-# `Article.image` field at render time — never duplicated or hard-coded.
+# here". The template no longer uses this to position the image inline —
+# the image is always rendered above the article text — but it still marks
+# where the caption text comes from, and gets stripped out of the rendered
+# body so it never appears as literal text.
 HERO_IMAGE_TOKEN = re.compile(r"\[\[HERO_IMAGE:(.*?)\]\]", re.S)
 
 # Matches the "<h2 ...>...</h2>" section headings inside `Article.content` so
@@ -100,25 +100,12 @@ class Article(models.Model):
         return [strip_tags(h).strip() for h in SECTION_HEADING.findall(self.content or "")]
 
     @property
-    def _hero_split(self):
-        content = self.content or ""
-        match = HERO_IMAGE_TOKEN.search(content)
-        if not match:
-            return content, "", ""
-        before, after = content.split(match.group(0), 1)
-        return before, match.group(1).strip(), after
-
-    @property
-    def content_before_hero(self):
-        """Article body markup that appears before the hero image."""
-        return self._hero_split[0]
-
-    @property
     def hero_caption(self):
         """Caption text for the hero image, pulled from the content token."""
-        return self._hero_split[1]
+        match = HERO_IMAGE_TOKEN.search(self.content or "")
+        return match.group(1).strip() if match else ""
 
     @property
-    def content_after_hero(self):
-        """Article body markup that appears after the hero image."""
-        return self._hero_split[2]
+    def content_html(self):
+        """Full article body, with the hero-image token removed."""
+        return HERO_IMAGE_TOKEN.sub("", self.content or "").strip()
