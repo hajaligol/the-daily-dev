@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>From Our Desk &mdash; The Daily Dev</title>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="newspaper blog-page">
+  <div class="grain"></div>
+  <div class="foxing"></div>
+
+  <!-- ============================================================
+       MASTHEAD ROW (same as homepage)
+       ============================================================ -->
+  <header class="masthead-row">
+    <div class="side-box left-box">
+      <p>All the code<br>that&rsquo;s fit to<br>commit</p>
+    </div>
+
+    <div class="masthead-center">
+      <img class="masthead-image" src="{% static 'images/the-daily-dev-masthead.svg' %}" alt="The Daily Dev — Est. 2026">
+    </div>
+
+    <div class="side-box right-box">
+      <p>May your<br>cache be<br>ever clear</p>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       METADATA STRIP
+       ============================================================ -->
+  <div class="meta-row">
+    <span class="vol">Vol. I, No. 23</span>
+    <span class="meta-center">The Magical World of Code &amp; Creativity</span>
+    <span class="date">Saturday, Sep 5, 2026</span>
+  </div>
+
+  <!-- ============================================================
+       BLOG PAGE HEADER
+       ============================================================ -->
+  <div class="blog-header">
+    <div class="blog-header-line">
+      <span class="hand hand-blog-left" aria-hidden="true">
+        <img src="{% static 'images/right-pointing-hand.webp' %}" alt="">
+      </span>
+      <h1 class="blog-heading">From Our Desk</h1>
+      <span class="hand hand-blog-right" aria-hidden="true">
+        <img src="{% static 'images/left-pointing-hand.webp' %}" alt="">
+      </span>
+    </div>
+    <p class="blog-subheading">Stories, lessons, and ideas from the world of code &amp; creativity</p>
+  </div>
+
+  <div class="rule-thick"></div>
+
+  <!-- ============================================================
+       SIX-POST EDITORIAL GRID
+       ============================================================ -->
+  <main class="blog-grid">
+    {% for post in posts %}
+    <article class="blog-post">
+      <div class="blog-post-image">
+        <span class="blog-post-number" aria-hidden="true">{{ post.number }}</span>
+        <img src="{% static post.image %}" alt="{{ post.alt }}">
+      </div>
+      <div class="blog-post-content">
+        <p class="blog-post-category">{{ post.category }}</p>
+        <h2 class="blog-post-title">{{ post.title }}</h2>
+        <p class="blog-post-excerpt">{{ post.excerpt }}&hellip;</p>
+        <a class="blog-post-reference" href="#">Read more on page {{ post.page_reference }} &#10148;</a>
+      </div>
+    </article>
+    {% endfor %}
+  </main>
+
+  <div class="rule-thick"></div>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="blog-footer">
+    <span class="hand hand-footer" aria-hidden="true">
+      <img src="{% static 'images/left-pointing-hand.webp' %}" alt="">
+    </span>
+    <p class="blog-footer-text">New stories every week for curious minds</p>
+    <span class="hand hand-footer" aria-hidden="true">
+      <img src="{% static 'images/right-pointing-hand.webp' %}" alt="">
+    </span>
+    <span class="blog-footer-page">Page 3</span>
+  </footer>
+
+</div>
+
+</body>
+</html>

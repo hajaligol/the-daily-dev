@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320">
+  <defs>
+    <pattern id="hatchA" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="5" stroke="#1c1912" stroke-width="1"/>
+    </pattern>
+    <pattern id="hatchA2" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)">
+      <line x1="0" y1="0" x2="0" y2="6" stroke="#1c1912" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- ground line -->
+  <line x1="30" y1="266" x2="370" y2="266" stroke="#1c1912" stroke-width="3"/>
+  <rect x="30" y="266" width="340" height="8" fill="url(#hatchA2)"/>
+
+  <!-- bottom row of blocks -->
+  <g stroke="#1c1912" stroke-width="3">
+    <rect x="70"  y="206" width="52" height="52" fill="#efe7d3"/>
+    <rect x="128" y="206" width="52" height="52" fill="url(#hatchA)"/>
+    <rect x="186" y="206" width="52" height="52" fill="#efe7d3"/>
+    <rect x="244" y="206" width="52" height="52" fill="url(#hatchA)"/>
+  </g>
+
+  <!-- middle row -->
+  <g stroke="#1c1912" stroke-width="3">
+    <rect x="99"  y="150" width="52" height="52" fill="url(#hatchA)"/>
+    <rect x="157" y="150" width="52" height="52" fill="#efe7d3"/>
+    <rect x="215" y="150" width="52" height="52" fill="url(#hatchA)"/>
+  </g>
+
+  <!-- top row -->
+  <g stroke="#1c1912" stroke-width="3">
+    <rect x="128" y="94" width="52" height="52" fill="#efe7d3"/>
+    <rect x="186" y="94" width="52" height="52" fill="url(#hatchA)"/>
+  </g>
+
+  <!-- single top block -->
+  <rect x="157" y="42" width="52" height="52" fill="#efe7d3" stroke="#1c1912" stroke-width="3.5"/>
+
+  <!-- circuit marks on a few blocks for a "component" feel -->
+  <g stroke="#1c1912" stroke-width="2" fill="none">
+    <path d="M83 220 h10 M83 220 v12 h10"/>
+    <circle cx="93" cy="232" r="2.2" fill="#1c1912"/>
+    <path d="M199 232 h10 M209 232 v-12 h10"/>
+    <circle cx="199" cy="220" r="2.2" fill="#1c1912"/>
+    <path d="M170 168 h10 v10"/>
+    <circle cx="180" cy="178" r="2.2" fill="#1c1912"/>
+  </g>
+
+  <!-- tiny figures at the base for scale -->
+  <g stroke="#1c1912" stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M50 266 v-16 M50 254 l-7 8 M50 254 l7 8 M50 250 l-6 10 M50 250 l6 10"/>
+    <circle cx="50" cy="246" r="4" fill="#1c1912"/>
+    <path d="M320 266 v-16 M320 254 l-7 8 M320 254 l7 8 M320 250 l-6 10 M320 250 l6 10"/>
+    <circle cx="320" cy="246" r="4" fill="#1c1912"/>
+  </g>
+</svg>

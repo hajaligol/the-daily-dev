@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'newsroom',
+    'articles',
 ]
 
 MIDDLEWARE = [
@@ -124,6 +125,10 @@ STATICFILES_DIRS = [
 
 # Where `collectstatic` gathers everything for production deploys.
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# User-uploaded content (e.g. article images)
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
