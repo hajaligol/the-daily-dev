@@ -1,0 +1,459 @@
+/* ==========================================================================
+   0. CUSTOM PROPERTIES / TOKENS
+   ========================================================================== */
+:root{
+  --paper:        #efe7d3;
+  --paper-deep:   #e6dcc3;
+  --ink:          #1c1912;
+  --ink-soft:     #38342a;
+  --ink-faint:    #6a6353;
+  --rule:         #201c14;
+
+  --font-mast:    "Old English Text MT", "Cloister Black", "UnifrakturMaester", "Blackletter", "Cambria", serif;
+  --font-head:    Impact, "Arial Narrow", "Roboto Condensed", Georgia, serif;
+  --font-serif:   Georgia, "Times New Roman", Times, serif;
+  --font-label:   Georgia, "Times New Roman", Times, serif;
+
+  --max-w: 920px;
+}
+
+/* ==========================================================================
+   1. RESET / BASE
+   ========================================================================== */
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+
+body{
+  background:#cfc7b3;
+  background-image:
+    radial-gradient(ellipse at 50% -10%, #ded6c0 0%, #cfc7b3 60%);
+  font-family:var(--font-serif);
+  color:var(--ink);
+  padding:34px 12px 60px;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ==========================================================================
+   2. NEWSPAPER SHEET
+   ========================================================================== */
+.newspaper{
+  position:relative;
+  max-width:var(--max-w);
+  margin:0 auto;
+  background:var(--paper);
+  border:1px solid var(--ink);
+  outline:5px solid var(--paper);
+  outline-offset:-9px;
+  box-shadow:
+    0 2px 0 var(--ink) inset,
+    0 22px 45px -18px rgba(0,0,0,.55),
+    0 2px 6px rgba(0,0,0,.25);
+  padding:22px 30px 30px;
+  isolation:isolate;
+}
+
+/* subtle aged paper grain, built as an inline SVG fractal-noise data-uri */
+.grain{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.16;
+  mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size:220px 220px;
+}
+.grain::after{ content:""; }
+
+/* faint foxing/age blotches */
+.foxing{
+  position:absolute; inset:0; pointer-events:none; z-index:0;
+  background-image:
+    radial-gradient(circle at 8% 14%, rgba(120,100,60,.10) 0, transparent 9%),
+    radial-gradient(circle at 92% 22%, rgba(120,100,60,.08) 0, transparent 11%),
+    radial-gradient(circle at 18% 88%, rgba(120,100,60,.09) 0, transparent 10%),
+    radial-gradient(circle at 80% 92%, rgba(120,100,60,.07) 0, transparent 12%),
+    radial-gradient(circle at 55% 55%, rgba(120,100,60,.05) 0, transparent 30%);
+}
+
+.newspaper > *{ position:relative; z-index:1; }
+
+/* ==========================================================================
+   3. SHARED RULES / TEXT UTILITIES
+   ========================================================================== */
+.rule-thick{ height:3px; background:var(--rule); margin:10px 0 8px; }
+.rule-mid  { height:2px; background:var(--rule); margin:8px 0; }
+.rule-thin { height:1px; background:var(--rule); margin:9px 0; opacity:.85; }
+.rule-hair { height:1px; background:var(--ink-faint); margin:6px 0; opacity:.6; }
+
+.small-caps{ font-variant:small-caps; }
+.upper{ text-transform:uppercase; }
+
+/* ==========================================================================
+   4. MASTHEAD ROW
+   ========================================================================== */
+.masthead-row{
+  display:grid;
+  grid-template-columns: 1fr 2.35fr 1fr;
+  align-items:stretch;
+  gap:16px;
+  padding-bottom:8px;
+}
+
+.side-box{
+  border:1.4px solid var(--ink);
+  padding:10px 10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.side-box p{
+  margin:0;
+  font-family:var(--font-label);
+  font-weight:1000;
+  text-transform:uppercase;
+  font-size:1rem;
+  line-height:1.32;
+  letter-spacing:.02em;
+}
+
+.masthead-center{
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:0 4px;
+}
+.masthead-image{
+  width:100%;
+  max-width:520px;
+  height:auto;
+  display:block;
+  margin:0 auto;
+}
+
+/* ==========================================================================
+   5. METADATA STRIP
+   ========================================================================== */
+.meta-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  border-top:2.5px solid var(--rule);
+  border-bottom:2.5px solid var(--rule);
+  padding:6px 2px;
+  margin-top:4px;
+  font-family:var(--font-label);
+}
+.meta-row .vol,
+.meta-row .date{
+  font-weight:1000;
+  font-size:.72rem;
+  letter-spacing:.03em;
+  white-space:nowrap;
+  text-transform:uppercase;
+}
+.meta-row .meta-center{
+  font-weight:1000;
+  font-size:.72rem;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  text-align:center;
+  flex:1;
+}
+
+/* ==========================================================================
+   6. HEADLINE BLOCK
+   ========================================================================== */
+.headline-block{
+  text-align:center;
+  padding:10px 0 2px;
+}
+.headline-line1,
+.headline-line2{
+  font-family:var(--font-head);
+  font-weight:1000;
+  text-transform:uppercase;
+  line-height:.86;
+  margin:0;
+  letter-spacing:-.01em;
+  color:var(--ink);
+}
+.headline-line1{ font-size:clamp(2rem, 7.6vw, 4.4rem); white-space:nowrap; font-weight: 1000;}
+.headline-line2-wrap{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  margin-top:2px;
+}
+.headline-line2{ font-size:clamp(1.15rem, 5.6vw, 3.2rem); white-space:nowrap; }
+.hand{ flex:0 0 auto; }
+.hand img{ width:clamp(34px,5.6vw,60px); height:auto; display:block; }
+
+.subheadline{
+  font-family:var(--font-serif);
+  font-style:italic;
+  font-weight:700;
+  font-size:clamp(.82rem,1.6vw,1rem);
+  letter-spacing:.01em;
+  margin:10px 0 0;
+}
+
+/* ==========================================================================
+   7. MAIN BODY GRID (3 columns)
+   ========================================================================== */
+.body-grid{
+  display:grid;
+  grid-template-columns: 1fr 2.28fr 1fr;
+  gap:0;
+  align-items:stretch;
+}
+.col-left,.col-right{ padding-top:2px; }
+.col-left{  padding-right:16px; }
+.col-right{ padding-left:16px; }
+.col-center{
+  padding:0 18px;
+  border-left:1px solid var(--ink);
+  border-right:1px solid var(--ink);
+  display:flex;
+  flex-direction:column;
+}
+
+.story{ margin-bottom:2px; }
+.story-title{
+  font-family:var(--font-serif);
+  font-weight:1000;
+  text-transform:uppercase;
+  text-align:center;
+  font-size:clamp(1.15rem,2.6vw,1.5rem);
+  line-height:1.04;
+  margin:0 0 6px;
+}
+.story-title .starline{
+  display:block;
+  font-size:.9em;
+  letter-spacing:.03em;
+}
+.story-sub{
+  text-align:center;
+  font-style:italic;
+  font-weight:700;
+  font-size:.82rem;
+  line-height:1.32;
+  margin:0 0 8px;
+}
+.story-body{
+  font-size:.775rem;
+  line-height:1.38;
+  text-align:center;
+  margin:0;
+}
+.story-body + .story-body{ margin-top:8px; }
+.story-body strong{ font-weight:700; }
+
+.breaking-title{
+  text-align:center;
+  font-weight:1000;
+  font-size:clamp(1.15rem,2.6vw,1.5rem);
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  margin:0 0 2px;
+}
+.breaking-sub{
+  text-align:center;
+  font-style:italic;
+  font-weight:700;
+  font-size:1rem;
+  line-height:1.18;
+  margin:0 0 8px;
+}
+
+.byline-icon{
+  display:block;
+  margin:6px auto 8px;
+  width:64px;
+  height:auto;
+  object-fit:contain;
+}
+.byline-icon.small{ width:52px; }
+.unicorn-icon{ width:88%; max-width:150px; margin:8px auto 10px; }
+.teapot-icon.teapot-icon{ width:100%; max-width:230px; margin:8px auto 10px; }
+
+.footer-note{
+  clear:both;
+  font-size:.7rem;
+  font-style:italic;
+  text-align:right;
+  margin:8px 0 0;
+}
+
+/* --- punctuation ornament (bottom of left column) --- */
+.punct-ornament{
+  text-align:center;
+  margin-top:16px;
+}
+.punct-rays-wrap{
+  position:relative;
+  width:92px;
+  height:92px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.punct-rays{ position:absolute; inset:0; width:100%; height:100%; opacity:.8; }
+.punct-semicolon{
+  position:relative;
+  width:70px;
+  height:auto;
+  display:block;
+}
+.ribbon{
+  display:inline-block;
+  margin-top:2px;
+  background:var(--ink);
+  color:var(--paper);
+  font-family:var(--font-label);
+  font-weight:700;
+  font-size:.58rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  padding:5px 10px 4px;
+  clip-path: polygon(3% 0,97% 0,100% 50%,97% 100%,3% 100%,0% 50%);
+}
+
+/* ==========================================================================
+   8. CENTER PORTRAIT
+   ========================================================================== */
+.portrait-frame{
+  margin:2px 0 0;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  flex:1 1 auto;
+  min-height:0;
+}
+.portrait-border{
+  border:2px solid var(--ink);
+  padding:5px;
+  background:#eee7d4;
+  box-shadow:0 0 0 1px var(--paper) inset;
+  display:flex;
+  flex:1 1 auto;
+  min-height:0;
+}
+.portrait-border img{
+  display:block;
+  width:100%;
+  aspect-ratio:4/5;
+  flex:1 1 auto;
+  min-height:0;
+  object-fit:cover;
+  object-position:50% 12%;
+  border:1px solid var(--ink);
+  background:#ece4cf;
+}
+.portrait-caption{
+  text-align:center;
+  font-style:italic;
+  font-size:.85rem;
+  font-weight: 700;
+  line-height:1.35;
+  margin:9px 4px 0;
+  flex:0 0 auto;
+}
+
+/* ==========================================================================
+   9. FOOTER GRID (bottom features)
+   ========================================================================== */
+.footer-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap:0;
+  margin-top:2px;
+}
+.footer-col{ padding:0 16px 0 0; }
+.footer-col + .footer-col{
+  border-left:1px solid var(--ink);
+  padding-left:16px;
+}
+.footer-col h4{
+  font-family:var(--font-serif);
+  text-align:center;
+  font-weight:1000;
+  text-transform:uppercase;
+  font-size:.92rem;
+  letter-spacing:.01em;
+  margin:0 0 3px;
+  line-height:1.15;
+}
+.footer-col .italic-sub{
+  text-align:center;
+  font-style:italic;
+  font-size:.72rem;
+  margin:0 0 8px;
+  line-height:1.25;
+}
+.footer-icon{
+  display:block;
+  margin:4px auto 8px;
+  width:50px;
+  height:auto;
+  object-fit:contain;
+}
+.scroll-icon{ width:96px; float:left; margin:2px 12px 8px 0; }
+.wizard-hat-icon{ width:96px; float:left; margin:2px 12px 8px 0; }
+.footer-body{
+  font-size:.72rem;
+  line-height:1.34;
+  margin:0;
+  text-align:justify;
+  hyphens:auto;
+  -webkit-hyphens:auto;
+  -ms-hyphens:auto;
+}
+.footer-col ol{
+  margin:0 0 8px;
+  padding-left:16px;
+  font-size:.73rem;
+  line-height:1.44;
+}
+.footer-col ol li{ margin-bottom:1px; }
+
+/* ==========================================================================
+   10. DECORATIVE SVG DEFAULTS
+   ========================================================================== */
+svg .ink{ fill:var(--ink); }
+svg .ink-line{ stroke:var(--ink); fill:none; }
+svg .soft{ fill:var(--ink-soft); }
+
+/* ==========================================================================
+   11. RESPONSIVE ADJUSTMENTS
+   ========================================================================== */
+@media (max-width: 720px){
+  .newspaper{ padding:16px 14px 22px; }
+  .masthead-row{ grid-template-columns: 1fr; gap:8px; text-align:center; }
+  .side-box{ padding:7px 8px; }
+  .body-grid{ grid-template-columns: 1fr; }
+  .col-center{ border-left:none; border-right:none; padding:14px 0; order:-1; border-top:1px solid var(--ink); border-bottom:1px solid var(--ink); }
+  .col-left{ padding-right:0; }
+  .col-right{ padding-left:0; margin-top:6px; }
+  .footer-grid{ grid-template-columns:1fr; }
+  .footer-col{ padding:0 0 14px; }
+  .footer-col + .footer-col{ border-left:none; padding-left:0; border-top:1px solid var(--ink); padding-top:14px; }
+  .headline-line2-wrap{ gap:6px; }
+}
+
+@media (max-width: 420px){
+  body{ padding:16px 6px 40px; }
+  .newspaper{ padding:12px 10px 18px; }
+}
+
+/* print-ish niceties */
+@media print{
+  body{ background:#fff; padding:0; }
+  .newspaper{ box-shadow:none; outline:none; border:1px solid #000; }
+}

@@ -1,0 +1,167 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Daily Dev</title>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="newspaper">
+  <div class="grain"></div>
+  <div class="foxing"></div>
+
+  <!-- ============================================================
+       MASTHEAD ROW
+       ============================================================ -->
+  <header class="masthead-row">
+    <div class="side-box left-box">
+      <p>All the code<br>that&rsquo;s fit to<br>commit</p>
+    </div>
+
+    <div class="masthead-center">
+      <img class="masthead-image" src="{% static 'images/the-daily-dev-masthead.svg' %}" alt="The Daily Dev — Est. 2026">
+    </div>
+
+    <div class="side-box right-box">
+      <p>May your<br>cache be<br>ever clear</p>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       METADATA STRIP
+       ============================================================ -->
+  <div class="meta-row">
+    <span class="vol">Vol. I, No. 1</span>
+    <span class="meta-center">The Magical World of Code &amp; Creativity</span>
+    <span class="date">Saturday, Sep 5, 2026</span>
+  </div>
+
+  <!-- ============================================================
+       HEADLINE
+       ============================================================ -->
+  <div class="headline-block">
+    <h2 class="headline-line1">Web Development</h2>
+    <div class="headline-line2-wrap">
+      <span class="hand hand-left" aria-hidden="true">
+        <img src="{% static 'images/right-pointing-hand.webp' %}" alt="">
+      </span>
+      <h2 class="headline-line2">Has Taken a Leap!</h2>
+      <span class="hand hand-right" aria-hidden="true">
+        <img src="{% static 'images/left-pointing-hand.webp' %}" alt="">
+      </span>
+    </div>
+    <div class="rule-hair" style="width:60%;margin:8px auto 0;"></div>
+    <p class="subheadline">Local Developer "A. H." Defies Gravity, Bugs, and Common Sense</p>
+  </div>
+
+  <div class="rule-thick"></div>
+
+  <!-- ============================================================
+       MAIN BODY — three column grid
+       ============================================================ -->
+  <main class="body-grid">
+
+    <!-- ---------- LEFT COLUMN ---------- -->
+    <aside class="col-left">
+      <article class="story">
+        <h3 class="story-title">Wizard<br>of the<br><span class="starline">&#9733; Web &#9733;</span></h3>
+        <p class="story-sub">Spells in JavaScript.<br>Potions in CSS.<br>Chaos in Production.</p>
+        <p class="story-body">Sources close to the scene report that our mysterious developer has once again defied the limits of logic and launched a project so smooth, it practically hovered.</p>
+      </article>
+
+      <div class="rule-thin"></div>
+
+      <article class="story">
+        <h3 class="breaking-title">Breaking:</h3>
+        <p class="breaking-sub">Semicolon Found<br>Hiding in Plain Sight!</p>
+        <p class="story-body">After years of elusive mystery, a rogue semicolon has been discovered lurking in someone&rsquo;s codebase.</p>
+        <p class="story-body">&ldquo;It was right there all along,&rdquo; said one dev, &ldquo;judging me.&rdquo;</p>
+      </article>
+
+      <div class="punct-ornament">
+        <div class="punct-rays-wrap">
+          <img class="punct-semicolon" src="{% static 'images/semicolon.webp' %}" alt="Semicolon">
+        </div>
+        <div class="ribbon">Punctuation Matters</div>
+      </div>
+    </aside>
+
+    <!-- ---------- CENTER: PORTRAIT ---------- -->
+    <section class="col-center">
+      <figure class="portrait-frame">
+        <div class="portrait-border">
+          <img src="{% static 'images/portrait.webp' %}" alt="Engraved portrait of a developer wearing sunglasses">
+        </div>
+        <figcaption class="portrait-caption">Asked for a deadline, he said: &ldquo;I ship when the stars align.&rdquo;</figcaption>
+      </figure>
+    </section>
+
+    <!-- ---------- RIGHT COLUMN ---------- -->
+    <aside class="col-right">
+      <article class="story">
+        <h3 class="story-title">Unicorns<br>Now Run<br>on React</h3>
+        <img class="byline-icon unicorn-icon" src="{% static 'images/unicorn.webp' %}" alt="Vintage engraved unicorn illustration">
+        <p class="story-body">In a stunning turn of events, mythical beasts have embraced component-based architecture.</p>
+        <p class="story-body"><strong>Performance: Legendary.</strong></p>
+      </article>
+
+      <div class="rule-thin"></div>
+
+      <article class="story">
+        <h3 class="story-title">Git Gossip</h3>
+        <p class="story-sub">Branches Spill Tea</p>
+
+        <img class="byline-icon small teapot-icon" src="{% static 'images/teapot.webp' %}" alt="Vintage engraved teapot illustration">
+
+        <p class="story-body">&ldquo;Main&rdquo; thinks it&rsquo;s perfect.<br>&ldquo;Dev&rdquo; lives for drama.<br>&ldquo;Feature/login&rdquo; never merges.<br>&ldquo;Hotfix&rdquo; is always in crisis.</p>
+        <p class="footer-note">&ndash; More on page 7</p>
+      </article>
+    </aside>
+
+  </main>
+
+  <div class="rule-thick"></div>
+
+  <!-- ============================================================
+       FOOTER — three smaller features
+       ============================================================ -->
+  <footer class="footer-grid">
+
+    <div class="footer-col">
+      <h4>The Debugger&rsquo;s Prophecy</h4>
+      <p class="italic-sub">An Ancient Scroll Has Spoken</p>
+      <img class="footer-icon scroll-icon" src="{% static 'images/letter.webp' %}" alt="Vintage engraved scroll illustration">
+      <p class="footer-body">Behold the prophecy: &ldquo;Thou shalt console.log, and lo, the error shall reveal itself.&rdquo; Many laughed. Then it worked.</p>
+      <p class="footer-note">&ndash; Full prophecy on page 5</p>
+    </div>
+
+    <div class="footer-col footer-col-center">
+      <h4>10 Signs You&rsquo;re a Dev</h4>
+      <p class="italic-sub">(According to Your Code)</p>
+      <ol>
+        <li>You talk to your computer.</li>
+        <li>You dream in dark mode.</li>
+        <li>You have 47 tabs open.</li>
+        <li>You stack overflow in real life.</li>
+        <li>You see bugs everywhere.</li>
+      </ol>
+      <p class="footer-note" style="text-align:center;">See all 10 on page 3</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>CSS Is Magic</h4>
+      <p class="italic-sub">Don&rsquo;t Let Anyone Tell You Otherwise</p>
+      <img class="footer-icon wizard-hat-icon" src="{% static 'images/wizard-hat.webp' %}" alt="Vintage engraved wizard hat illustration">
+      <p class="footer-body">With the right flex, you can move mountains. With position: absolute, you can break them.</p>
+      <p class="footer-note">&ndash; Tutorial on page 11</p>
+    </div>
+
+  </footer>
+
+</div>
+
+</body>
+</html>
