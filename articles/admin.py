@@ -7,6 +7,19 @@ from .models import Article
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ("title", "category", "order", "page_reference", "is_published", "created_at")
     list_filter = ("is_published", "category")
-    search_fields = ("title", "category", "excerpt")
+    search_fields = ("title", "category", "excerpt", "topics")
     prepopulated_fields = {"slug": ("title",)}
     ordering = ("order", "-created_at")
+    fields = (
+        "title",
+        "slug",
+        "category",
+        "excerpt",
+        "content",
+        "topics",
+        "image",
+        "image_alt",
+        "page_reference",
+        "order",
+        "is_published",
+    )

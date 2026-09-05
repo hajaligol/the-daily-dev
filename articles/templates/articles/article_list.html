@@ -71,7 +71,7 @@
         <p class="blog-post-category">{{ article.category }}</p>
         <h2 class="blog-post-title">{{ article.title }}</h2>
         <p class="blog-post-excerpt">{{ article.excerpt }}&hellip;</p>
-        <a class="blog-post-reference" href="#">Read more on page {{ article.page_reference }} &#10148;</a>
+        <a class="blog-post-reference" href="{% url 'articles:detail' article.slug %}">Read more on page {{ article.page_reference }} &#10148;</a>
       </div>
     </article>
     {% endfor %}

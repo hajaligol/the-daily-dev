@@ -1,0 +1,186 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ article.title }} &mdash; The Daily Dev</title>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="newspaper article-detail-page">
+  <div class="grain"></div>
+  <div class="foxing"></div>
+
+  <!-- ============================================================
+       MASTHEAD ROW (same as homepage / listing page)
+       ============================================================ -->
+  <header class="masthead-row">
+    <div class="side-box left-box">
+      <p>All the code<br>that&rsquo;s fit to<br>commit</p>
+    </div>
+
+    <div class="masthead-center">
+      <img class="masthead-image" src="{% static 'images/the-daily-dev-masthead.svg' %}" alt="The Daily Dev — Est. 2026">
+    </div>
+
+    <div class="side-box right-box">
+      <p>May your<br>cache be<br>ever clear</p>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       METADATA STRIP
+       ============================================================ -->
+  <div class="meta-row">
+    <span class="vol">Vol. I, No. 23</span>
+    <span class="meta-center">The Magical World of Code &amp; Creativity</span>
+    <span class="date">Saturday, Sep 5, 2026</span>
+  </div>
+
+  <!-- ============================================================
+       ARTICLE HEADER
+       ============================================================ -->
+  <header class="article-header">
+    <p class="article-category">
+      <span aria-hidden="true">&#10070;</span> {{ article.category }} <span aria-hidden="true">&#10070;</span>
+    </p>
+    <h1 class="article-title">{{ article.title }}</h1>
+    <p class="article-dek">{{ article.excerpt }}</p>
+    <p class="article-byline">By A. H. &mdash; Special Correspondent</p>
+  </header>
+
+  <div class="rule-thick"></div>
+
+  <!-- ============================================================
+       ARTICLE BODY  (side meta | two-column article text | side meta)
+       ============================================================ -->
+  <div class="article-meta-layout">
+
+    <aside class="article-side-meta side-meta-left">
+      <div class="side-meta-block">
+        <p class="side-meta-label">Published</p>
+        <p class="side-meta-value">{{ article.created_at|date:"M j, Y" }}</p>
+      </div>
+      <div class="side-meta-block">
+        <p class="side-meta-label">Reading time</p>
+        <p class="side-meta-value">{{ article.reading_time }} min read</p>
+      </div>
+      {% if article.topics %}
+      <div class="side-meta-block">
+        <p class="side-meta-label">Topics</p>
+        <p class="side-meta-value">{{ article.topics }}</p>
+      </div>
+      {% endif %}
+    </aside>
+
+    <div class="article-body">
+      <article class="article-body-columns">
+        {{ article.content_before_hero|safe }}
+
+        <figure class="article-hero">
+          <div class="article-image-frame">
+            <img class="article-image" src="{{ article.image.url }}" alt="{{ article.image_alt }}">
+          </div>
+          {% if article.hero_caption %}
+          <figcaption class="article-caption">{{ article.hero_caption }}</figcaption>
+          {% endif %}
+        </figure>
+
+        {{ article.content_after_hero|safe }}
+      </article>
+    </div>
+
+    <aside class="article-side-meta side-meta-right">
+      <div class="side-meta-block">
+        <p class="side-meta-label">Share this story</p>
+        <p class="side-meta-share">Twitter &middot; LinkedIn &middot; Email</p>
+      </div>
+      {% if article.toc_items %}
+      <div class="side-meta-block">
+        <p class="side-meta-label">On this page</p>
+        <ol class="side-meta-toc">
+          {% for item in article.toc_items %}
+          <li>{{ item }}</li>
+          {% endfor %}
+        </ol>
+      </div>
+      {% endif %}
+    </aside>
+
+  </div>
+
+  <div class="rule-thick"></div>
+
+  <!-- ============================================================
+       ARTICLE NAVIGATION
+       ============================================================ -->
+  <nav class="article-navigation" aria-label="Article navigation">
+    <div class="nav-prev">
+      {% if previous_article %}
+      <a class="nav-link" href="{% url 'articles:detail' previous_article.slug %}">
+        <p class="nav-label">&larr; Previous story</p>
+        <p class="nav-title">{{ previous_article.title }}</p>
+      </a>
+      {% endif %}
+    </div>
+    <div class="nav-back">
+      <a class="nav-link" href="{% url 'articles:list' %}">
+        <p class="nav-label">Back to desk</p>
+        <p class="nav-title">All stories from our desk</p>
+      </a>
+    </div>
+    <div class="nav-next">
+      {% if next_article %}
+      <a class="nav-link" href="{% url 'articles:detail' next_article.slug %}">
+        <p class="nav-label">Up next &rarr;</p>
+        <p class="nav-title">{{ next_article.title }}</p>
+      </a>
+      {% endif %}
+    </div>
+  </nav>
+
+  {% if related_articles %}
+  <div class="rule-thin"></div>
+
+  <!-- ============================================================
+       RELATED ARTICLES
+       ============================================================ -->
+  <section class="article-related" aria-label="Related stories">
+    <p class="related-heading">You Might Also Enjoy</p>
+    <div class="related-grid">
+      {% for related in related_articles %}
+      <a class="related-item" href="{% url 'articles:detail' related.slug %}">
+        <img class="related-thumb" src="{{ related.image.url }}" alt="">
+        <span class="related-copy">
+          <span class="related-title">{{ related.title }}</span>
+          <span class="related-excerpt">{{ related.excerpt|truncatewords:14 }}</span>
+          <span class="related-reference">Read more on page {{ related.page_reference }} &#10148;</span>
+        </span>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <div class="rule-thick"></div>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="blog-footer article-detail-footer">
+    <span class="hand hand-footer" aria-hidden="true">
+      <img src="{% static 'images/left-pointing-hand.webp' %}" alt="">
+    </span>
+    <p class="blog-footer-text">New stories every week for curious minds</p>
+    <span class="hand hand-footer" aria-hidden="true">
+      <img src="{% static 'images/right-pointing-hand.webp' %}" alt="">
+    </span>
+    <span class="blog-footer-page">Page {{ article.page_reference }}</span>
+  </footer>
+
+</div>
+
+</body>
+</html>

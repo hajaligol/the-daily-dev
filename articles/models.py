@@ -1,5 +1,20 @@
+import re
+
 from django.db import models
+from django.utils.html import strip_tags
 from django.utils.text import slugify
+
+# Marker used inside `Article.content` to say "the hero image + caption goes
+# here". Keeping this in the content field (rather than hard-coding the image
+# markup in the template) means the article body stays a single source of
+# truth, while the actual <img> tag is still rendered from the real
+# `Article.image` field at render time — never duplicated or hard-coded.
+HERO_IMAGE_TOKEN = re.compile(r"\[\[HERO_IMAGE:(.*?)\]\]", re.S)
+
+# Matches the "<h2 ...>...</h2>" section headings inside `Article.content` so
+# the "On This Page" side index can be generated from the real article body
+# instead of being maintained as a second, easily-out-of-sync list.
+SECTION_HEADING = re.compile(r"<h2[^>]*>(.*?)</h2>", re.I | re.S)
 
 
 class Article(models.Model):
@@ -13,6 +28,27 @@ class Article(models.Model):
     )
     excerpt = models.TextField(
         help_text="Short teaser shown on the listing page."
+    )
+    content = models.TextField(
+        blank=True,
+        default="",
+        help_text=(
+            "Full article body shown on the detail page. Written as simple "
+            "HTML (<p>, <h2 class=\"article-section-title\">, <blockquote "
+            "class=\"article-pullquote\">, <ul>) and rendered as-is, the way "
+            "a newsroom CMS body field would be. Include the token "
+            "'[[HERO_IMAGE:caption text]]' once, at the point where the "
+            "article's own image should appear."
+        ),
+    )
+    topics = models.CharField(
+        max_length=255,
+        blank=True,
+        default="",
+        help_text=(
+            "Optional comma-separated topic tags shown in the side column, "
+            "e.g. 'Mindset, Debugging, Logs, Growth'."
+        ),
     )
     image = models.ImageField(
         upload_to="articles/",
@@ -48,3 +84,41 @@ class Article(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+
+    # ------------------------------------------------------------------
+    # Detail-page helpers
+    # ------------------------------------------------------------------
+    @property
+    def reading_time(self):
+        """Rough reading time in minutes, derived from the body word count."""
+        word_count = len(strip_tags(self.content).split())
+        return max(1, round(word_count / 200))
+
+    @property
+    def toc_items(self):
+        """Section headings pulled straight out of `content`, in order."""
+        return [strip_tags(h).strip() for h in SECTION_HEADING.findall(self.content or "")]
+
+    @property
+    def _hero_split(self):
+        content = self.content or ""
+        match = HERO_IMAGE_TOKEN.search(content)
+        if not match:
+            return content, "", ""
+        before, after = content.split(match.group(0), 1)
+        return before, match.group(1).strip(), after
+
+    @property
+    def content_before_hero(self):
+        """Article body markup that appears before the hero image."""
+        return self._hero_split[0]
+
+    @property
+    def hero_caption(self):
+        """Caption text for the hero image, pulled from the content token."""
+        return self._hero_split[1]
+
+    @property
+    def content_after_hero(self):
+        """Article body markup that appears after the hero image."""
+        return self._hero_split[2]
