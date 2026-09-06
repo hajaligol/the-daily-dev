@@ -1,0 +1,290 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact &mdash; The Daily Dev</title>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<script>
+(function () {
+  try {
+    if (sessionStorage.getItem("fadeIn")) {
+      document.documentElement.classList.add("fade-in");
+      sessionStorage.removeItem("fadeIn");
+    }
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+
+<div class="newspaper contact-page">
+  <div class="grain"></div>
+  <div class="foxing"></div>
+
+  <!-- ============================================================
+       MASTHEAD ROW (same as homepage / other pages)
+       ============================================================ -->
+  <header class="masthead-row">
+    <div class="side-box left-box">
+      <p>All the code<br>that&rsquo;s fit to<br>commit</p>
+    </div>
+
+    <div class="masthead-center">
+      <a class="masthead-link" href="{% url 'newsroom:index' %}">
+        <img class="masthead-image" src="{% static 'images/the-daily-dev-masthead.svg' %}" alt="The Daily Dev — Est. 2026">
+      </a>
+    </div>
+
+    <div class="side-box right-box">
+      <p>May your<br>cache be<br>ever clear</p>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       METADATA STRIP
+       ============================================================ -->
+  <div class="meta-row">
+    <span class="vol">Vol. I, No. 23</span>
+    <span class="meta-center">The Magical World of Code &amp; Creativity</span>
+    <span class="date">Saturday, Sep 5, 2026</span>
+  </div>
+
+  <!-- ============================================================
+       CONTACT HERO — "Get in Touch"
+       ============================================================ -->
+  <div class="blog-header contact-hero">
+    <div class="blog-header-line">
+      <span class="hand hand-blog-left" aria-hidden="true">
+        <img src="{% static 'images/right-pointing-hand.webp' %}" alt="">
+      </span>
+      <h1 class="blog-heading">Get In Touch</h1>
+      <span class="hand hand-blog-right" aria-hidden="true">
+        <img src="{% static 'images/left-pointing-hand.webp' %}" alt="">
+      </span>
+    </div>
+    <p class="blog-subheading">Have a question, a project, or just want to say hello?</p>
+    <p class="blog-subheading">We&rsquo;d love to hear from you.</p>
+    <div class="rule-hair" style="width:70px;margin:16px auto 0;" aria-hidden="true"></div>
+  </div>
+
+  <div class="rule-thick"></div>
+
+  <!-- ============================================================
+       MAIN CONTACT SECTION — three editorial columns
+       ============================================================ -->
+  <main class="contact-grid">
+
+    <!-- ---------- LEFT COLUMN: LET'S CONNECT ---------- -->
+    <section class="contact-col contact-col-connect" aria-labelledby="contact-connect-heading">
+      <h2 id="contact-connect-heading" class="contact-col-title">Let&rsquo;s<br>Connect</h2>
+      <p class="contact-stars" aria-hidden="true">&#9733; &#9733; &#9733;</p>
+
+      <p class="contact-col-copy">Whether you have a question, feedback, a collaboration idea, or just want to chat about code, creativity, or life &mdash; we&rsquo;re here for it.</p>
+
+      <!-- TODO: Replace .illustration-frame contents below with the final
+           engraved illustration of a correspondent at the telephone
+           (see static/images/) once the asset is supplied. -->
+      <figure class="editorial-illustration illustration-telephone">
+        <div class="illustration-frame">
+          <span class="illustration-label">Illustration placeholder<br>&mdash; engraving of a<br>correspondent at the telephone</span>
+        </div>
+      </figure>
+
+      <p class="contact-pull-line">&ldquo;Good ideas often start with a simple message.&rdquo;</p>
+      <div class="rule-hair" style="width:60px;margin:14px auto 0;" aria-hidden="true"></div>
+    </section>
+
+    <!-- ---------- CENTER COLUMN: OUR CHANNELS ---------- -->
+    <section class="contact-col contact-col-channels" aria-labelledby="contact-channels-heading">
+      <h2 id="contact-channels-heading" class="contact-col-title">Our Channels</h2>
+      <p class="contact-col-dek">Follow, message, or connect &mdash; choose your preferred way.</p>
+
+      <ul class="channel-list">
+
+        <li class="channel-item">
+          <!-- TODO: Replace with final engraved Telegram icon -->
+          <div class="channel-icon-frame" aria-hidden="true">
+            <span class="channel-icon-fig">Fig.</span>
+            <span class="channel-icon-num">I</span>
+          </div>
+          <div class="channel-copy">
+            <h3 class="channel-name">Telegram</h3>
+            <p class="channel-desc">Join our Telegram channel for updates and discussions.</p>
+            <a class="channel-handle" href="https://t.me/thedailydev">@thedailydev</a>
+          </div>
+        </li>
+        <div class="rule-thin" aria-hidden="true"></div>
+
+        <li class="channel-item">
+          <!-- TODO: Replace with final engraved Instagram icon -->
+          <div class="channel-icon-frame" aria-hidden="true">
+            <span class="channel-icon-fig">Fig.</span>
+            <span class="channel-icon-num">II</span>
+          </div>
+          <div class="channel-copy">
+            <h3 class="channel-name">Instagram</h3>
+            <p class="channel-desc">Follow for daily inspiration, behind the scenes, and more.</p>
+            <a class="channel-handle" href="https://instagram.com/thedailydev">@thedailydev</a>
+          </div>
+        </li>
+        <div class="rule-thin" aria-hidden="true"></div>
+
+        <li class="channel-item">
+          <!-- TODO: Replace with final engraved LinkedIn icon -->
+          <div class="channel-icon-frame" aria-hidden="true">
+            <span class="channel-icon-fig">Fig.</span>
+            <span class="channel-icon-num">III</span>
+          </div>
+          <div class="channel-copy">
+            <h3 class="channel-name">LinkedIn</h3>
+            <p class="channel-desc">Let&rsquo;s connect professionally and grow together.</p>
+            <a class="channel-handle" href="https://linkedin.com/company/thedailydev">/company/thedailydev</a>
+          </div>
+        </li>
+        <div class="rule-thin" aria-hidden="true"></div>
+
+        <li class="channel-item">
+          <!-- TODO: Replace with final engraved GitHub icon -->
+          <div class="channel-icon-frame" aria-hidden="true">
+            <span class="channel-icon-fig">Fig.</span>
+            <span class="channel-icon-num">IV</span>
+          </div>
+          <div class="channel-copy">
+            <h3 class="channel-name">GitHub</h3>
+            <p class="channel-desc">Check out our projects, contribute, or say hi.</p>
+            <a class="channel-handle" href="https://github.com/thedailydev">github.com/thedailydev</a>
+          </div>
+        </li>
+        <div class="rule-thin" aria-hidden="true"></div>
+
+        <li class="channel-item">
+          <!-- TODO: Replace with final engraved WhatsApp icon -->
+          <div class="channel-icon-frame" aria-hidden="true">
+            <span class="channel-icon-fig">Fig.</span>
+            <span class="channel-icon-num">V</span>
+          </div>
+          <div class="channel-copy">
+            <h3 class="channel-name">WhatsApp</h3>
+            <p class="channel-desc">Quick questions? Feel free to message us directly.</p>
+            <a class="channel-handle" href="https://wa.me/12345678900">+1 234 567 8900</a>
+          </div>
+        </li>
+        <div class="rule-thin" aria-hidden="true"></div>
+
+        <li class="channel-item">
+          <!-- TODO: Replace with final engraved envelope/Email icon -->
+          <div class="channel-icon-frame" aria-hidden="true">
+            <span class="channel-icon-fig">Fig.</span>
+            <span class="channel-icon-num">VI</span>
+          </div>
+          <div class="channel-copy">
+            <h3 class="channel-name">Email</h3>
+            <p class="channel-desc">For inquiries, partnerships, or detailed conversations.</p>
+            <a class="channel-handle" href="mailto:hello@thedailydev.com">hello@thedailydev.com</a>
+          </div>
+        </li>
+
+      </ul>
+    </section>
+
+    <!-- ---------- RIGHT COLUMN: SEND US A MESSAGE ---------- -->
+    <section class="contact-col contact-col-form">
+      <div class="contact-form-frame">
+        <h2 class="contact-col-title">Send Us<br>a Message</h2>
+        <div class="rule-hair" style="width:60px;margin:0 auto;" aria-hidden="true"></div>
+        <p class="contact-col-dek">We&rsquo;ll get back to you as soon as possible.</p>
+
+        {% if messages %}
+          {% for message in messages %}
+          <p class="form-success" role="status">{{ message }}</p>
+          {% endfor %}
+        {% endif %}
+
+        <form class="contact-form" method="post" action="{% url 'newsroom:contact' %}" novalidate>
+          {% csrf_token %}
+
+          {% if form.non_field_errors %}
+          <p class="field-error" role="alert">{{ form.non_field_errors.0 }}</p>
+          {% endif %}
+
+          <div class="field">
+            <label for="{{ form.name.id_for_label }}">Name <span class="field-required" aria-hidden="true">*</span></label>
+            {{ form.name }}
+            {% if form.name.errors %}
+            <p class="field-error" id="{{ form.name.id_for_label }}_error" role="alert">{{ form.name.errors.0 }}</p>
+            {% endif %}
+          </div>
+
+          <div class="field">
+            <label for="{{ form.email.id_for_label }}">Email <span class="field-required" aria-hidden="true">*</span></label>
+            {{ form.email }}
+            {% if form.email.errors %}
+            <p class="field-error" id="{{ form.email.id_for_label }}_error" role="alert">{{ form.email.errors.0 }}</p>
+            {% endif %}
+          </div>
+
+          <div class="field">
+            <label for="{{ form.subject.id_for_label }}">Subject <span class="field-required" aria-hidden="true">*</span></label>
+            {{ form.subject }}
+            {% if form.subject.errors %}
+            <p class="field-error" id="{{ form.subject.id_for_label }}_error" role="alert">{{ form.subject.errors.0 }}</p>
+            {% endif %}
+          </div>
+
+          <div class="field">
+            <label for="{{ form.message.id_for_label }}">Message <span class="field-required" aria-hidden="true">*</span></label>
+            {{ form.message }}
+            {% if form.message.errors %}
+            <p class="field-error" id="{{ form.message.id_for_label }}_error" role="alert">{{ form.message.errors.0 }}</p>
+            {% endif %}
+          </div>
+
+          <div class="form-actions">
+            <span class="hand hand-send" aria-hidden="true">
+              <img src="{% static 'images/right-pointing-hand.webp' %}" alt="">
+            </span>
+            <button type="submit" class="btn-send">Send Message</button>
+          </div>
+        </form>
+
+        <p class="form-note">We read every message.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="rule-thick"></div>
+
+  <!-- ============================================================
+       LOWER FEATURE — editorial closing panel
+       ============================================================ -->
+  <section class="contact-feature" aria-label="Closing feature">
+    <p class="contact-feature-text">Great<br>People<br>Make<br>Great<br>Things</p>
+
+    <!-- TODO: Replace .illustration-frame contents below with the final
+         engraved city skyline &amp; airship illustration (see static/images/)
+         once the asset is supplied. -->
+    <figure class="editorial-illustration illustration-skyline">
+      <div class="illustration-frame">
+        <span class="illustration-label">Illustration placeholder &mdash; engraved city skyline with airship</span>
+      </div>
+    </figure>
+
+    <p class="contact-feature-text align-right">Let&rsquo;s Build<br>Something<br>Amazing<br>Together<span class="contact-feature-byline">&mdash; The Daily Dev &mdash;</span></p>
+  </section>
+
+  <div class="rule-thin"></div>
+
+  <!-- ============================================================
+       PAGE-CLOSING TAGLINE
+       ============================================================ -->
+  <p class="contact-tagline-footer">Ideas <span aria-hidden="true">&#10022;</span> Code <span aria-hidden="true">&#10022;</span> Community <span aria-hidden="true">&#10022;</span> The Daily Dev</p>
+
+</div>
+
+<script src="{% static 'js/page-transitions.js' %}" defer></script>
+<script src="{% static 'js/contact-form.js' %}" defer></script>
+</body>
+</html>

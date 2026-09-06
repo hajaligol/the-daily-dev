@@ -1507,7 +1507,451 @@ a.nav-link:hover .nav-title {
 }
 
 /* ==========================================================================
-   14. PAGE FADE TRANSITIONS
+   14. CONTACT PAGE  ( /contact/ — "Get in Touch" )
+   ========================================================================== */
+
+/* ---- hero: heading flanked by hands (reuses .blog-header/.blog-heading),
+   plus a second dek line and a short centered divider ---- */
+.contact-hero .blog-subheading + .blog-subheading {
+  margin-top: 3px;
+}
+
+/* ---- three-column editorial layout ---- */
+.contact-grid {
+  display: grid;
+  grid-template-columns: .92fr 1.18fr 1fr;
+  gap: 0;
+  align-items: start;
+  padding-top: 4px;
+}
+
+.contact-col {
+  padding: 4px 20px 0 0;
+}
+
+.contact-col + .contact-col {
+  border-left: 1px solid var(--ink);
+  padding-left: 22px;
+}
+
+.contact-col-title {
+  font-family: var(--font-serif);
+  font-weight: 1000;
+  text-transform: uppercase;
+  line-height: 1.02;
+  letter-spacing: -.01em;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  margin: 0 0 10px;
+  color: var(--ink);
+}
+
+.contact-col-dek {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 700;
+  font-size: .78rem;
+  line-height: 1.4;
+  margin: 0 0 14px;
+  color: var(--ink-soft);
+}
+
+/* ---- LEFT: Let's Connect ---- */
+.contact-stars {
+  margin: 0 0 14px;
+  font-size: .85rem;
+  letter-spacing: .3em;
+  color: var(--ink);
+}
+
+.contact-col-copy {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: .82rem;
+  line-height: 1.5;
+  margin: 0 0 16px;
+  color: var(--ink-soft);
+}
+
+.contact-pull-line {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 700;
+  font-size: .84rem;
+  line-height: 1.4;
+  text-align: center;
+  margin: 14px 0 0;
+  color: var(--ink);
+}
+
+/* ---- reusable image-placeholder component ----
+   Stands in for an engraved illustration that hasn't been supplied yet.
+   Swap the frame's contents for a real <img> when the artwork exists —
+   nothing else about the layout needs to change. */
+.editorial-illustration {
+  margin: 0;
+}
+
+.illustration-frame {
+  border: 1.6px solid var(--ink-faint);
+  background: var(--paper-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  text-align: center;
+}
+
+.illustration-label {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: .68rem;
+  line-height: 1.45;
+  color: var(--ink-faint);
+}
+
+.illustration-telephone .illustration-frame {
+  aspect-ratio: 3 / 4;
+  width: 100%;
+}
+
+/* ---- CENTER: Our Channels ---- */
+.channel-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.channel-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 0;
+}
+
+.channel-list .rule-thin {
+  margin: 0;
+}
+
+.channel-item:first-child {
+  padding-top: 2px;
+}
+
+.channel-icon-frame {
+  flex: 0 0 auto;
+  width: 54px;
+  height: 54px;
+  border: 1.6px solid var(--ink-faint);
+  background: var(--paper-deep);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+}
+
+.channel-icon-fig {
+  font-family: var(--font-label);
+  text-transform: uppercase;
+  font-size: .5rem;
+  letter-spacing: .08em;
+  color: var(--ink-faint);
+}
+
+.channel-icon-num {
+  font-family: var(--font-serif);
+  font-weight: 1000;
+  font-size: 1.05rem;
+  color: var(--ink-faint);
+}
+
+.channel-copy {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.channel-name {
+  font-family: var(--font-serif);
+  font-weight: 1000;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  font-size: .86rem;
+  margin: 0 0 4px;
+  color: var(--ink);
+}
+
+.channel-desc {
+  font-family: var(--font-serif);
+  font-size: .76rem;
+  line-height: 1.4;
+  margin: 0 0 4px;
+  color: var(--ink-soft);
+}
+
+.channel-handle {
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: .76rem;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--ink-faint);
+}
+
+.channel-handle:hover {
+  color: var(--ink-soft);
+  border-bottom-color: var(--ink);
+}
+
+/* ---- RIGHT: Send Us a Message ---- */
+.contact-form-frame {
+  border: 1.4px solid var(--ink);
+  padding: 18px 20px 20px;
+}
+
+.contact-form-frame .contact-col-title {
+  text-align: center;
+}
+
+.contact-form-frame .contact-col-dek {
+  text-align: center;
+  margin: 10px 0 16px;
+}
+
+.form-success {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: .78rem;
+  line-height: 1.45;
+  text-align: center;
+  border-top: 1px solid var(--ink-faint);
+  border-bottom: 1px solid var(--ink-faint);
+  padding: 10px 4px;
+  margin: 0 0 16px;
+  color: var(--ink);
+}
+
+.contact-form .field {
+  margin-bottom: 14px;
+}
+
+.contact-form label {
+  display: block;
+  font-family: var(--font-label);
+  font-weight: 1000;
+  text-transform: uppercase;
+  font-size: .68rem;
+  letter-spacing: .09em;
+  margin: 0 0 5px;
+  color: var(--ink);
+}
+
+.field-required {
+  color: var(--ink-soft);
+}
+
+.field-input {
+  display: block;
+  width: 100%;
+  border: 1.4px solid var(--ink);
+  background: var(--paper-deep);
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: .84rem;
+  padding: 9px 10px;
+  border-radius: 0;
+  box-sizing: border-box;
+}
+
+.field-input::placeholder {
+  color: var(--ink-faint);
+  font-style: italic;
+}
+
+.field-input:focus {
+  outline: none;
+  border-width: 2px;
+  padding: 8px 9px;
+  box-shadow: 0 0 0 1px var(--ink);
+}
+
+.field-textarea {
+  resize: vertical;
+  min-height: 130px;
+  line-height: 1.4;
+}
+
+.field-error {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: .72rem;
+  line-height: 1.4;
+  margin: 5px 0 0;
+  padding-left: 9px;
+  border-left: 2px solid var(--ink);
+  color: var(--ink-soft);
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.form-actions .hand img {
+  width: clamp(26px, 4vw, 34px);
+  height: auto;
+  display: block;
+}
+
+.btn-send {
+  display: block;
+  flex: 1 1 auto;
+  max-width: 260px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-label);
+  font-weight: 1000;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: .8rem;
+  border: 1.4px solid var(--ink);
+  padding: 11px 18px;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+.btn-send:hover {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.btn-send:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.form-note {
+  text-align: center;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: .74rem;
+  margin: 12px 0 0;
+  color: var(--ink-soft);
+}
+
+/* ---- lower feature: stacked text either side of a wide illustration ---- */
+.contact-feature {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 22px;
+  align-items: center;
+  padding: 6px 0 2px;
+}
+
+.contact-feature-text {
+  font-family: var(--font-head);
+  font-weight: 1000;
+  text-transform: uppercase;
+  line-height: .98;
+  font-size: clamp(1.3rem, 2.6vw, 1.85rem);
+  margin: 0;
+  color: var(--ink);
+}
+
+.contact-feature-text.align-right {
+  text-align: right;
+}
+
+.contact-feature-byline {
+  display: block;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: .78rem;
+  margin-top: 10px;
+}
+
+.illustration-skyline .illustration-frame {
+  aspect-ratio: 21 / 8;
+  width: 100%;
+}
+
+/* ---- page-closing tagline strip ---- */
+.contact-tagline-footer {
+  text-align: center;
+  font-family: var(--font-label);
+  font-weight: 1000;
+  text-transform: uppercase;
+  font-size: .68rem;
+  letter-spacing: .12em;
+  padding-top: 10px;
+  color: var(--ink);
+}
+
+.contact-tagline-footer span {
+  margin: 0 10px;
+  opacity: .6;
+  letter-spacing: 0;
+}
+
+/* ---- responsive ---- */
+@media (max-width: 860px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-col {
+    padding: 18px 0;
+  }
+
+  .contact-col + .contact-col {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid var(--ink);
+  }
+
+  .illustration-telephone .illustration-frame {
+    aspect-ratio: 16 / 10;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .contact-feature {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .contact-feature-text.align-right {
+    text-align: center;
+  }
+
+  .illustration-skyline .illustration-frame {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-form-frame {
+    padding: 16px 14px 18px;
+  }
+
+  .channel-item {
+    gap: 10px;
+  }
+
+  .channel-icon-frame {
+    width: 46px;
+    height: 46px;
+  }
+}
+
+/* ==========================================================================
+   15. PAGE FADE TRANSITIONS
    The newspaper sheet fades out before leaving a page, and fades in as
    the next page loads.
    ========================================================================== */
