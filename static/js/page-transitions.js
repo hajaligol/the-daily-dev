@@ -75,4 +75,18 @@
     },
     true
   );
+
+  // If this page is restored from the back/forward cache (e.g. after
+  // clicking the browser Back button), it comes back exactly as it was
+  // left — including a lingering "fade-out" class whose animation ended
+  // at opacity: 0. Nothing else fires in that case (it's not a fresh
+  // load), so without this the page would just sit there invisible.
+  window.addEventListener("pageshow", function (event) {
+    var sheet = document.querySelector(".newspaper");
+    if (!sheet) return;
+
+    if (event.persisted || sheet.classList.contains("fade-out")) {
+      sheet.classList.remove("fade-out");
+    }
+  });
 })();
