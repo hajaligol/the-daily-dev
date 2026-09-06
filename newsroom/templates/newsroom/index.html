@@ -136,38 +136,21 @@
   <div class="rule-thick"></div>
 
   <!-- ============================================================
-       FOOTER — three smaller features
+       FOOTER — latest 3 article posts
        ============================================================ -->
   <footer class="footer-grid">
 
-    <div class="footer-col">
-      <h4>The Debugger&rsquo;s Prophecy</h4>
-      <p class="italic-sub">An Ancient Scroll Has Spoken</p>
-      <img class="footer-icon scroll-icon" src="{% static 'images/letter.webp' %}" alt="Vintage engraved scroll illustration">
-      <p class="footer-body">Behold the prophecy: &ldquo;Thou shalt console.log, and lo, the error shall reveal itself.&rdquo; Many laughed. Then it worked.</p>
-      <p class="footer-note">&ndash; Full prophecy on page 5</p>
+    {% for article in latest_articles %}
+    <div class="footer-col footer-post">
+      <p class="footer-post-category">{{ article.category }}</p>
+      <a class="footer-post-image" href="{% url 'articles:detail' article.slug %}">
+        <img src="{{ article.image.url }}" alt="{{ article.image_alt }}">
+      </a>
+      <h4><a class="footer-post-title-link" href="{% url 'articles:detail' article.slug %}">{{ article.title }}</a></h4>
+      <p class="footer-body">{{ article.excerpt|truncatewords:16 }}</p>
+      <p class="footer-note"><a class="footer-post-reference" href="{% url 'articles:detail' article.slug %}">Read more on page {{ article.page_reference }} &#10148;</a></p>
     </div>
-
-    <div class="footer-col footer-col-center">
-      <h4>10 Signs You&rsquo;re a Dev</h4>
-      <p class="italic-sub">(According to Your Code)</p>
-      <ol>
-        <li>You talk to your computer.</li>
-        <li>You dream in dark mode.</li>
-        <li>You have 47 tabs open.</li>
-        <li>You stack overflow in real life.</li>
-        <li>You see bugs everywhere.</li>
-      </ol>
-      <p class="footer-note" style="text-align:center;">See all 10 on page 3</p>
-    </div>
-
-    <div class="footer-col">
-      <h4>CSS Is Magic</h4>
-      <p class="italic-sub">Don&rsquo;t Let Anyone Tell You Otherwise</p>
-      <img class="footer-icon wizard-hat-icon" src="{% static 'images/wizard-hat.webp' %}" alt="Vintage engraved wizard hat illustration">
-      <p class="footer-body">With the right flex, you can move mountains. With position: absolute, you can break them.</p>
-      <p class="footer-note">&ndash; Tutorial on page 11</p>
-    </div>
+    {% endfor %}
 
   </footer>
 

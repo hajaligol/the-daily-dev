@@ -549,6 +549,63 @@ body {
   -ms-hyphens: auto;
 }
 
+/* ---- footer latest-post cards ---- */
+.footer-post-category {
+  text-align: center;
+  font-family: var(--font-label);
+  font-weight: 1000;
+  text-transform: uppercase;
+  font-size: .62rem;
+  letter-spacing: .13em;
+  color: var(--ink-soft);
+  margin: 0 0 6px;
+}
+
+.footer-post-image {
+  display: block;
+  width: 100%;
+  max-width: 250px;
+  aspect-ratio: 3 / 2;
+  margin: 0 auto 8px;
+  /* border: 2px solid var(--ink-faint); */
+  background: #eee7d4;
+  padding: 3px;
+  box-sizing: border-box;
+}
+
+.footer-post-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: sepia(.06);
+}
+
+.footer-post-title-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer-post-title-link:hover {
+  color: var(--ink-soft);
+  text-decoration: underline;
+}
+
+.footer-post .footer-note {
+  text-align: right;
+}
+
+.footer-post-reference {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--ink-faint);
+  padding-bottom: 1px;
+}
+
+.footer-post-reference:hover {
+  color: var(--ink-soft);
+}
+
 .footer-col ol {
   margin: 0 0 8px;
   padding-left: 16px;
