@@ -169,6 +169,12 @@ body {
   padding: 0 4px;
 }
 
+.masthead-link {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+}
+
 .masthead-image {
   width: 100%;
   max-width: 520px;
@@ -567,7 +573,7 @@ body {
   max-width: 250px;
   aspect-ratio: 3 / 2;
   margin: 0 auto 8px;
-  /* border: 2px solid var(--ink-faint); */
+  border: 2px solid var(--ink-faint);
   background: #eee7d4;
   padding: 3px;
   box-sizing: border-box;
@@ -814,7 +820,12 @@ svg .soft {
   /* background: var(--paper-deep); */
   padding: 4px;
   display: flex;
+  text-decoration: none;
 }
+
+/* .blog-post-image:hover {
+  border-color: var(--ink);
+} */
 
 .blog-post-image img {
   width: 100%;
@@ -870,6 +881,16 @@ svg .soft {
   line-height: 1.14;
   margin: 0 0 8px;
   color: var(--ink);
+}
+
+.blog-post-title-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.blog-post-title-link:hover {
+  color: var(--ink-soft);
+  text-decoration: underline;
 }
 
 .blog-post-excerpt {
@@ -1052,11 +1073,34 @@ svg .soft {
 
 /* ---- meta layout: side meta | two-column body | side meta ---- */
 .article-meta-layout {
+  position: relative;
   display: grid;
   grid-template-columns: 132px 1fr 132px;
   gap: 22px;
   align-items: start;
   padding-top: 18px;
+}
+
+/* two vertical rules, centered in the gutters on either side of the main
+   column — same technique as .blog-grid::after. The side columns are a
+   fixed 132px, so the rule sits at a fixed distance (column + half gap)
+   from each edge regardless of how wide the center column stretches. */
+.article-meta-layout::before,
+.article-meta-layout::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--ink);
+}
+
+.article-meta-layout::before {
+  left: 143px;
+}
+
+.article-meta-layout::after {
+  right: 143px;
 }
 
 .article-side-meta {
@@ -1295,9 +1339,30 @@ a.nav-link:hover .nav-title {
 }
 
 .related-grid {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0;
+}
+
+/* two vertical rules, centered in the gutters between the three columns,
+   spanning the full height of the grid — same technique as .blog-grid::after */
+.related-grid::before,
+.related-grid::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--ink);
+}
+
+.related-grid::before {
+  left: 33.3333%;
+}
+
+.related-grid::after {
+  left: 66.6667%;
 }
 
 .related-item {
@@ -1307,10 +1372,6 @@ a.nav-link:hover .nav-title {
   padding: 0 16px;
   text-decoration: none;
   color: inherit;
-}
-
-.related-item + .related-item {
-  border-left: 1px solid var(--ink);
 }
 
 .related-thumb {
@@ -1363,6 +1424,11 @@ a.nav-link:hover .nav-title {
   .article-meta-layout {
     grid-template-columns: 1fr;
     gap: 0;
+  }
+
+  .article-meta-layout::before,
+  .article-meta-layout::after {
+    display: none;
   }
 
   .article-side-meta {
@@ -1420,12 +1486,16 @@ a.nav-link:hover .nav-title {
     grid-template-columns: 1fr;
   }
 
+  .related-grid::before,
+  .related-grid::after {
+    display: none;
+  }
+
   .related-item {
     padding: 12px 0;
   }
 
   .related-item + .related-item {
-    border-left: none;
     border-top: 1px solid var(--ink);
   }
 }

@@ -32,7 +32,9 @@
     </div>
 
     <div class="masthead-center">
-      <img class="masthead-image" src="{% static 'images/the-daily-dev-masthead.svg' %}" alt="The Daily Dev — Est. 2026">
+      <a class="masthead-link" href="{% url 'newsroom:index' %}">
+        <img class="masthead-image" src="{% static 'images/the-daily-dev-masthead.svg' %}" alt="The Daily Dev — Est. 2026">
+      </a>
     </div>
 
     <div class="side-box right-box">

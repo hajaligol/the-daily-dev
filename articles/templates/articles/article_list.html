@@ -32,7 +32,9 @@
     </div>
 
     <div class="masthead-center">
-      <img class="masthead-image" src="{% static 'images/the-daily-dev-masthead.svg' %}" alt="The Daily Dev — Est. 2026">
+      <a class="masthead-link" href="{% url 'newsroom:index' %}">
+        <img class="masthead-image" src="{% static 'images/the-daily-dev-masthead.svg' %}" alt="The Daily Dev — Est. 2026">
+      </a>
     </div>
 
     <div class="side-box right-box">
@@ -73,13 +75,13 @@
   <main class="blog-grid">
     {% for article in articles %}
     <article class="blog-post">
-      <div class="blog-post-image">
+      <a class="blog-post-image" href="{% url 'articles:detail' article.slug %}">
         <span class="blog-post-number" aria-hidden="true">{{ forloop.counter }}</span>
         <img src="{{ article.image.url }}" alt="{{ article.image_alt }}">
-      </div>
+      </a>
       <div class="blog-post-content">
         <p class="blog-post-category">{{ article.category }}</p>
-        <h2 class="blog-post-title">{{ article.title }}</h2>
+        <h2 class="blog-post-title"><a class="blog-post-title-link" href="{% url 'articles:detail' article.slug %}">{{ article.title }}</a></h2>
         <p class="blog-post-excerpt">{{ article.excerpt }}&hellip;</p>
         <a class="blog-post-reference" href="{% url 'articles:detail' article.slug %}">Read more on page {{ article.page_reference }} &#10148;</a>
       </div>
