@@ -67,6 +67,31 @@ html {
   background: var(--paper-deep);
 }
 
+/* ==========================================================================
+   1c. CUSTOM CURSOR
+   ========================================================================== */
+body {
+  cursor: url("../images/cursor-nib.svg") 13 1, auto;
+}
+
+a,
+button,
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+input[type="checkbox"],
+input[type="radio"],
+label[for],
+select,
+.side-box,
+.nav-link,
+.masthead-link,
+.channel-handle,
+[onclick],
+[role="button"] {
+  cursor: url("../images/cursor-magnifier.svg") 9 9, pointer;
+}
+
 body {
   background: #cfc7b3;
   background-image:
@@ -187,7 +212,7 @@ body {
   text-align: center;
   color: inherit;
   text-decoration: none;
-  cursor: pointer;
+  cursor: url("../images/cursor-magnifier.svg") 9 9, pointer;
   transition: background-color .15s ease, color .15s ease;
 }
 
@@ -1323,7 +1348,7 @@ a.nav-link {
   display: block;
   padding: 10px 10px;
   margin: -10px;
-  cursor: pointer;
+  cursor: url("../images/cursor-magnifier.svg") 9 9, pointer;
   transition: background-color .15s ease, color .15s ease;
 }
 
@@ -1866,7 +1891,7 @@ a.nav-link:focus-visible .nav-title {
   font-size: .8rem;
   border: 1.4px solid var(--ink);
   padding: 11px 18px;
-  cursor: pointer;
+  cursor: url("../images/cursor-magnifier.svg") 9 9, pointer;
   border-radius: 0;
 }
 
