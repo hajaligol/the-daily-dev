@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1000 650"
+     width="1000"
+     height="650"
+     fill="none"
+     preserveAspectRatio="none">
+
+  <defs>
+    <!-- Subtle hand-drawn ink variation -->
+    <filter id="markerTexture" x="-8%" y="-12%" width="116%" height="124%">
+      <feTurbulence type="fractalNoise"
+                    baseFrequency="0.025 0.11"
+                    numOctaves="2"
+                    seed="17"
+                    result="noise"/>
+      <feDisplacementMap in="SourceGraphic"
+                         in2="noise"
+                         scale="1.8"
+                         xChannelSelector="R"
+                         yChannelSelector="G"/>
+    </filter>
+  </defs>
+
+  <!-- Main hand-drawn loop -->
+  <path
+    d="M 88,344
+       C 92,265 177,151 319,91
+       C 465,29 660,25 797,66
+       C 902,98 953,160 942,221
+       C 928,299 823,365 694,418
+       C 554,476 378,517 238,501
+       C 145,490 83,440 72,378
+       C 68,366 74,351 88,344"
+    stroke="#D82424"
+    stroke-width="10"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    filter="url(#markerTexture)"/>
+
+  <!-- Slightly irregular second pass, matching the original hand-drawn overlap -->
+  <path
+    d="M 90,347
+       C 101,276 181,164 322,99
+       C 466,36 656,32 790,71
+       C 889,100 943,160 935,216
+       C 924,289 814,357 687,410
+       C 544,469 373,510 239,493
+       C 151,482 96,437 84,379"
+    stroke="#E52A2A"
+    stroke-width="0"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    opacity="1"
+    filter="url(#markerTexture)"/>
+
+  <!-- Characteristic inner finishing stroke -->
+  <path
+    d="M 198,374
+       C 188,405 211,437 260,454
+       C 335,480 454,470 562,447
+       C 645,429 715,408 774,386"
+    stroke="#D82424"
+    stroke-width="12"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    filter="url(#markerTexture)"/>
+
+  <!-- Fine dry-marker tail -->
+  <path
+    d="M 199,374
+       C 193,402 213,429 253,444
+       C 327,472 446,464 555,442
+       C 641,425 713,404 775,382"
+    stroke="#E52A2A"
+    stroke-width="10"
+    stroke-linecap="round"
+    opacity="1"
+    filter="url(#markerTexture)"/>
+</svg>
