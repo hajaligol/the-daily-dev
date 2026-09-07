@@ -27,9 +27,9 @@
        MASTHEAD ROW (same as homepage)
        ============================================================ -->
   <header class="masthead-row">
-    <div class="side-box left-box">
-      <p>All the code<br>that&rsquo;s fit to<br>commit</p>
-    </div>
+    <a class="side-box left-box" href="{% url 'articles:list' %}">
+      <p>All You<br>Need Is on<br>the Desk</p>
+    </a>
 
     <div class="masthead-center">
       <a class="masthead-link" href="{% url 'newsroom:index' %}">
@@ -37,9 +37,9 @@
       </a>
     </div>
 
-    <div class="side-box right-box">
-      <p>May your<br>cache be<br>ever clear</p>
-    </div>
+    <a class="side-box right-box" href="{% url 'newsroom:contact' %}">
+      <p>Get in<br>Touch</p>
+    </a>
   </header>
 
   <!-- ============================================================
