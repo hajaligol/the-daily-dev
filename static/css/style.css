@@ -1592,13 +1592,18 @@ a.nav-link:hover .nav-title {
 }
 
 .illustration-frame {
-  border: 1.6px solid var(--ink-faint);
-  background: var(--paper-deep);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px;
   text-align: center;
+  overflow: hidden;
+}
+
+.illustration-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .illustration-label {
@@ -1640,13 +1645,16 @@ a.nav-link:hover .nav-title {
   flex: 0 0 auto;
   width: 54px;
   height: 54px;
-  border: 1.6px solid var(--ink-faint);
-  background: var(--paper-deep);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1px;
+}
+
+.channel-icon-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 
 .channel-icon-fig {
