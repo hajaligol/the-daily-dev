@@ -204,7 +204,7 @@ body {
 }
 
 .side-box {
-  border: 1.4px solid var(--ink);
+  border: 2.5px solid var(--ink);
   padding: 10px 10px;
   display: flex;
   align-items: center;
