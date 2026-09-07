@@ -32,9 +32,10 @@
        C 145,490 83,440 72,378
        C 68,366 74,351 88,344"
     stroke="#D82424"
-    stroke-width="10"
+    stroke-width="8"
     stroke-linecap="round"
     stroke-linejoin="round"
+    opacity="0.7"
     filter="url(#markerTexture)"/>
 
   <!-- Slightly irregular second pass, matching the original hand-drawn overlap -->
@@ -60,7 +61,7 @@
        C 335,480 454,470 562,447
        C 645,429 715,408 774,386"
     stroke="#D82424"
-    stroke-width="12"
+    stroke-width="5"
     stroke-linecap="round"
     stroke-linejoin="round"
     filter="url(#markerTexture)"/>
@@ -72,7 +73,7 @@
        C 327,472 446,464 555,442
        C 641,425 713,404 775,382"
     stroke="#E52A2A"
-    stroke-width="10"
+    stroke-width="0"
     stroke-linecap="round"
     opacity="1"
     filter="url(#markerTexture)"/>

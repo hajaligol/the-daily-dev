@@ -74,18 +74,18 @@
        ============================================================ -->
   <main class="blog-grid">
     {% for article in articles %}
-    <article class="blog-post">
-      <a class="blog-post-image" href="{% url 'articles:detail' article.slug %}">
+    <a class="blog-post" href="{% url 'articles:detail' article.slug %}">
+      <span class="blog-post-image">
         <span class="blog-post-number" aria-hidden="true">{{ forloop.counter }}</span>
         <img src="{{ article.image.url }}" alt="{{ article.image_alt }}">
-      </a>
+      </span>
       <div class="blog-post-content">
         <p class="blog-post-category">{{ article.category }}</p>
-        <h2 class="blog-post-title"><a class="blog-post-title-link" href="{% url 'articles:detail' article.slug %}">{{ article.title }}</a></h2>
+        <h2 class="blog-post-title">{{ article.title }}</h2>
         <p class="blog-post-excerpt">{{ article.excerpt }}&hellip;</p>
-        <a class="blog-post-reference" href="{% url 'articles:detail' article.slug %}">Read more on page {{ article.page_reference }} &#10148;</a>
+        <p class="blog-post-reference">Read more on page {{ article.page_reference }} &#10148;</p>
       </div>
-    </article>
+    </a>
     {% endfor %}
   </main>
 

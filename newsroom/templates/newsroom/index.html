@@ -143,15 +143,15 @@
   <footer class="footer-grid">
 
     {% for article in latest_articles %}
-    <div class="footer-col footer-post">
+    <a class="footer-col footer-post" href="{% url 'articles:detail' article.slug %}">
       <p class="footer-post-category">{{ article.category }}</p>
-      <a class="footer-post-image" href="{% url 'articles:detail' article.slug %}">
+      <span class="footer-post-image">
         <img src="{{ article.image.url }}" alt="{{ article.image_alt }}">
-      </a>
-      <h4><a class="footer-post-title-link" href="{% url 'articles:detail' article.slug %}">{{ article.title }}</a></h4>
+      </span>
+      <h4>{{ article.title }}</h4>
       <p class="footer-body">{{ article.excerpt|truncatewords:16 }}</p>
-      <p class="footer-note"><a class="footer-post-reference" href="{% url 'articles:detail' article.slug %}">Read more on page {{ article.page_reference }} &#10148;</a></p>
-    </div>
+      <p class="footer-note footer-post-reference">Read more on page {{ article.page_reference }} &#10148;</p>
+    </a>
     {% endfor %}
 
   </footer>
