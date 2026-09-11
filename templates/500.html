@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presses Are Down &mdash; The Daily Dev</title>
+<style>
+  /* Intentionally self-contained: a 500 page must not depend on the
+     staticfiles manifest, template context processors, or anything else
+     that might itself be part of the outage. Colors are matched by eye to
+     the site's aged-paper palette in static/css/style.css without
+     importing it. */
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ede3cf;
+    color: #2b2620;
+    font-family: Georgia, "Times New Roman", serif;
+    padding: 2rem;
+    box-sizing: border-box;
+  }
+  .sheet {
+    max-width: 34rem;
+    text-align: center;
+    border: 2px solid #2b2620;
+    padding: 2.5rem 2rem;
+    background: #f4ecdb;
+  }
+  h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 1.6rem;
+    margin: 0 0 0.5rem;
+  }
+  p {
+    line-height: 1.5;
+  }
+  a {
+    color: #7a1f1f;
+  }
+  hr {
+    border: none;
+    border-top: 3px double #2b2620;
+    margin: 1.25rem 0;
+  }
+</style>
+</head>
+<body>
+  <div class="sheet">
+    <h1>The Daily Dev</h1>
+    <hr>
+    <p><strong>The presses have jammed.</strong></p>
+    <p>Something went wrong on our end while setting this page. It has been
+    logged, and the newsroom has been notified.</p>
+    <p><a href="/">Return to the front page</a></p>
+  </div>
+</body>
+</html>

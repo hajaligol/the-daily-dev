@@ -1,0 +1,37 @@
+# Convenience stack for running The Daily Dev against PostgreSQL locally,
+# close to how it runs in production. Not required for development (SQLite
+# works fine via `python manage.py runserver`), but useful for verifying the
+# production database path before deploying.
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: dailydev
+      POSTGRES_USER: dailydev
+      POSTGRES_PASSWORD: dailydev
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dailydev"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SECRET_KEY: local-docker-compose-secret-key
+      DJANGO_DEBUG: "false"
+      DJANGO_ALLOWED_HOSTS: "localhost,127.0.0.1"
+      DATABASE_URL: "postgres://dailydev:dailydev@db:5432/dailydev"
+    ports:
+      - "8000:8000"
+    volumes:
+      - media-data:/app/media
+
+volumes:
+  db-data:
+  media-data:

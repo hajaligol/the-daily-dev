@@ -9,6 +9,7 @@ class ContactMessageAdmin(admin.ModelAdmin):
     list_filter = ("created_at",)
     search_fields = ("name", "email", "subject", "message")
     ordering = ("-created_at",)
+    date_hierarchy = "created_at"
     readonly_fields = ("name", "email", "subject", "message", "created_at")
 
     def has_add_permission(self, request):

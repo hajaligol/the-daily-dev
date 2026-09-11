@@ -1,6 +1,8 @@
 import re
 
+import nh3
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.html import strip_tags
 from django.utils.text import slugify
 
@@ -15,6 +17,41 @@ HERO_IMAGE_TOKEN = re.compile(r"\[\[HERO_IMAGE:(.*?)\]\]", re.S)
 # the "On This Page" side index can be generated from the real article body
 # instead of being maintained as a second, easily-out-of-sync list.
 SECTION_HEADING = re.compile(r"<h2[^>]*>(.*?)</h2>", re.I | re.S)
+
+# `Article.content` is authored exclusively through the Django admin by
+# trusted staff, but it is still rendered with `|safe` on the public detail
+# page, so it is sanitized as defense-in-depth rather than trusted blindly —
+# a compromised or careless admin account should not be able to turn the
+# content field into a stored-XSS vector. The allow-list below is exactly
+# the vocabulary the editorial HTML actually uses (see the article-body
+# copy seeded in migrations 0004/0005 and articles/admin.py's help text),
+# so legitimate article markup renders unchanged while `<script>`, event
+# handler attributes, `javascript:` URLs, etc. are stripped.
+ALLOWED_TAGS = {
+    "p", "h2", "h3", "blockquote", "ul", "ol", "li",
+    "strong", "em", "code", "span", "a", "br", "sub", "sup",
+}
+ALLOWED_ATTRIBUTES = {
+    "p": {"class"},
+    "h2": {"class"},
+    "h3": {"class"},
+    "blockquote": {"class"},
+    "span": {"class"},
+    # "rel" is deliberately not listed here: nh3 manages that attribute
+    # itself on <a> tags via `link_rel` below, and (depending on nh3
+    # version) raises if it's also present in the explicit allow-list.
+    "a": {"href", "title"},
+}
+
+
+def sanitize_article_html(raw_html):
+    """Clean admin-authored article HTML down to the allow-listed vocabulary."""
+    return nh3.clean(
+        raw_html or "",
+        tags=ALLOWED_TAGS,
+        attributes=ALLOWED_ATTRIBUTES,
+        link_rel="noopener noreferrer",
+    )
 
 
 class Article(models.Model):
@@ -105,7 +142,14 @@ class Article(models.Model):
         match = HERO_IMAGE_TOKEN.search(self.content or "")
         return match.group(1).strip() if match else ""
 
-    @property
+    @cached_property
     def content_html(self):
-        """Full article body, with the hero-image token removed."""
-        return HERO_IMAGE_TOKEN.sub("", self.content or "").strip()
+        """Sanitized article body, safe to render with `|safe`.
+
+        The hero-image token is stripped first (it is plain-text markup
+        specific to this project, not HTML), then the remaining body is
+        passed through an allow-list HTML sanitizer before being cached on
+        the instance — sanitizing is pure and can't change per-request.
+        """
+        without_token = HERO_IMAGE_TOKEN.sub("", self.content or "").strip()
+        return sanitize_article_html(without_token)

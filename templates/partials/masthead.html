@@ -1,0 +1,19 @@
+{% load static %}
+<!-- ============================================================
+     MASTHEAD ROW
+     ============================================================ -->
+<header class="masthead-row">
+  <a class="side-box left-box" href="{% url 'articles:list' %}">
+    <p>All You<br>Need Is on<br>the Desk</p>
+  </a>
+
+  <div class="masthead-center">
+    <a class="masthead-link" href="{% url 'newsroom:index' %}">
+      <img class="masthead-image" src="{% static 'images/the-daily-dev-masthead.svg' %}" alt="The Daily Dev — Est. 2026">
+    </a>
+  </div>
+
+  <a class="side-box right-box" href="{% url 'newsroom:contact' %}">
+    <p>Get in<br>Touch</p>
+  </a>
+</header>

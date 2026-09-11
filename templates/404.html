@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Page Not Found &mdash; The Daily Dev{% endblock %}
+{% block meta_description %}This page could not be found.{% endblock %}
+{% block page_class %}error-page{% endblock %}
+
+{% block content %}
+  <div class="headline-block">
+    <h2 class="headline-line1">Missing Edition</h2>
+    <div class="rule-hair" style="width:60%;margin:8px auto 0;"></div>
+    <p class="subheadline">Page 404 &mdash; This Story Could Not Be Found on the Desk</p>
+  </div>
+
+  <div class="rule-thick"></div>
+
+  <main class="body-grid" style="text-align:center; padding: 3rem 1rem;">
+    <section class="col-center" style="grid-column: 1 / -1;">
+      <p class="story-body">
+        The page you&rsquo;re looking for may have been moved, renamed, or
+        never existed at all &mdash; much like a semicolon nobody remembers
+        typing.
+      </p>
+      <p class="story-body">
+        <a class="nav-link" href="{% url 'newsroom:index' %}">Return to the front page</a>
+        &nbsp;&middot;&nbsp;
+        <a class="nav-link" href="{% url 'articles:list' %}">Browse stories from our desk</a>
+      </p>
+    </section>
+  </main>
+
+  <div class="rule-thick"></div>
+{% endblock %}

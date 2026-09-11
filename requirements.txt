@@ -1,2 +1,26 @@
-Django==5.2.17
-Pillow==12.1.1
+# Version pins use minimum-version floors (>=) rather than exact pins for
+# most packages: exact pins on fast-moving libraries go stale (a package
+# release gets yanked/superseded) and then `pip install` fails outright,
+# which is worse than resolving to a newer compatible release. Django
+# itself is pinned to a minor-version range so a new major release doesn't
+# silently change behavior.
+
+# Core framework
+Django>=5.2,<5.3
+Pillow>=12.1
+
+# Environment / configuration
+python-dotenv>=1.0
+dj-database-url>=2.3
+
+# Production database driver (PostgreSQL)
+psycopg[binary]>=3.2.10
+
+# Production static file serving
+whitenoise>=6.7
+
+# Production WSGI server
+gunicorn>=23.0
+
+# Article HTML sanitization (defense-in-depth around admin-authored content)
+nh3>=0.2.18

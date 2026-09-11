@@ -1,56 +1,12 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{ article.title }} &mdash; The Daily Dev</title>
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
-<script>
-(function () {
-  try {
-    if (sessionStorage.getItem("fadeIn")) {
-      document.documentElement.classList.add("fade-in");
-      sessionStorage.removeItem("fadeIn");
-    }
-  } catch (e) {}
-})();
-</script>
-</head>
-<body>
 
-<div class="newspaper article-detail-page">
-  <div class="grain"></div>
-  <div class="foxing"></div>
+{% block title %}{{ article.title }} &mdash; The Daily Dev{% endblock %}
+{% block og_title %}{{ article.title }} &mdash; The Daily Dev{% endblock %}
+{% block meta_description %}{{ article.excerpt|truncatewords:25 }}{% endblock %}
+{% block page_class %}article-detail-page{% endblock %}
 
-  <!-- ============================================================
-       MASTHEAD ROW (same as homepage / listing page)
-       ============================================================ -->
-  <header class="masthead-row">
-    <a class="side-box left-box" href="{% url 'articles:list' %}">
-      <p>All You<br>Need Is on<br>the Desk</p>
-    </a>
-
-    <div class="masthead-center">
-      <a class="masthead-link" href="{% url 'newsroom:index' %}">
-        <img class="masthead-image" src="{% static 'images/the-daily-dev-masthead.svg' %}" alt="The Daily Dev — Est. 2026">
-      </a>
-    </div>
-
-    <a class="side-box right-box" href="{% url 'newsroom:contact' %}">
-      <p>Get in<br>Touch</p>
-    </a>
-  </header>
-
-  <!-- ============================================================
-       METADATA STRIP
-       ============================================================ -->
-  <div class="meta-row">
-    <span class="vol">Vol. I, No. 23</span>
-    <span class="meta-center">The Magical World of Code &amp; Creativity</span>
-    <span class="date">Saturday, Sep 5, 2026</span>
-  </div>
-
+{% block content %}
   <!-- ============================================================
        ARTICLE HEADER
        ============================================================ -->
@@ -178,22 +134,5 @@
 
   <div class="rule-thick"></div>
 
-  <!-- ============================================================
-       FOOTER
-       ============================================================ -->
-  <footer class="blog-footer article-detail-footer">
-    <span class="hand hand-footer" aria-hidden="true">
-      <img src="{% static 'images/right-pointing-hand.webp' %}" alt="">
-    </span>
-    <p class="blog-footer-text">New stories every week for curious minds</p>
-    <span class="hand hand-footer" aria-hidden="true">
-      <img src="{% static 'images/left-pointing-hand.webp' %}" alt="">
-    </span>
-    <span class="blog-footer-page">Page {{ article.page_reference }}</span>
-  </footer>
-
-</div>
-
-<script src="{% static 'js/page-transitions.js' %}" defer></script>
-</body>
-</html>
+  {% include "partials/site_footer.html" with footer_page_number=article.page_reference extra_footer_class="article-detail-footer" %}
+{% endblock %}

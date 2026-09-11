@@ -1,56 +1,12 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact &mdash; The Daily Dev</title>
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
-<script>
-(function () {
-  try {
-    if (sessionStorage.getItem("fadeIn")) {
-      document.documentElement.classList.add("fade-in");
-      sessionStorage.removeItem("fadeIn");
-    }
-  } catch (e) {}
-})();
-</script>
-</head>
-<body>
 
-<div class="newspaper contact-page">
-  <div class="grain"></div>
-  <div class="foxing"></div>
+{% block title %}Contact &mdash; The Daily Dev{% endblock %}
+{% block og_title %}Contact &mdash; The Daily Dev{% endblock %}
+{% block meta_description %}Have a question, a project, or just want to say hello? We'd love to hear from you.{% endblock %}
+{% block page_class %}contact-page{% endblock %}
 
-  <!-- ============================================================
-       MASTHEAD ROW (same as homepage / other pages)
-       ============================================================ -->
-  <header class="masthead-row">
-    <a class="side-box left-box" href="{% url 'articles:list' %}">
-      <p>All You<br>Need Is on<br>the Desk</p>
-    </a>
-
-    <div class="masthead-center">
-      <a class="masthead-link" href="{% url 'newsroom:index' %}">
-        <img class="masthead-image" src="{% static 'images/the-daily-dev-masthead.svg' %}" alt="The Daily Dev — Est. 2026">
-      </a>
-    </div>
-
-    <a class="side-box right-box" href="{% url 'newsroom:contact' %}">
-      <p>Get in<br>Touch</p>
-    </a>
-  </header>
-
-  <!-- ============================================================
-       METADATA STRIP
-       ============================================================ -->
-  <div class="meta-row">
-    <span class="vol">Vol. I, No. 23</span>
-    <span class="meta-center">The Magical World of Code &amp; Creativity</span>
-    <span class="date">Saturday, Sep 5, 2026</span>
-  </div>
-
+{% block content %}
   <!-- ============================================================
        CONTACT HERO — "Get in Touch"
        ============================================================ -->
@@ -263,10 +219,8 @@
        PAGE-CLOSING TAGLINE
        ============================================================ -->
   <p class="contact-tagline-footer">Ideas <span aria-hidden="true">&#10022;</span> Code <span aria-hidden="true">&#10022;</span> Community <span aria-hidden="true">&#10022;</span> The Daily Dev</p>
+{% endblock %}
 
-</div>
-
-<script src="{% static 'js/page-transitions.js' %}" defer></script>
+{% block extra_scripts %}
 <script src="{% static 'js/contact-form.js' %}" defer></script>
-</body>
-</html>
+{% endblock %}

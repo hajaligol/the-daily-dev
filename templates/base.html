@@ -1,0 +1,50 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}The Daily Dev{% endblock %}</title>
+<meta name="description" content="{% block meta_description %}The Daily Dev — a vintage-styled newspaper for developers: code, creativity, and community.{% endblock %}">
+<link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Daily Dev">
+<meta property="og:title" content="{% block og_title %}The Daily Dev{% endblock %}">
+<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/the-daily-dev-masthead.svg' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<script>
+(function () {
+  try {
+    if (sessionStorage.getItem("fadeIn")) {
+      document.documentElement.classList.add("fade-in");
+      sessionStorage.removeItem("fadeIn");
+    }
+  } catch (e) {}
+})();
+</script>
+{% block extra_head %}{% endblock %}
+</head>
+<body>
+
+<div class="newspaper {% block page_class %}{% endblock %}">
+  <div class="grain"></div>
+  <div class="foxing"></div>
+
+  {% include "partials/masthead.html" %}
+
+  <!-- ============================================================
+       METADATA STRIP
+       ============================================================ -->
+  <div class="meta-row">
+    <span class="vol">{% block meta_vol %}Vol. I, No. 23{% endblock %}</span>
+    <span class="meta-center">The Magical World of Code &amp; Creativity</span>
+    <span class="date">Saturday, Sep 5, 2026</span>
+  </div>
+
+  {% block content %}{% endblock %}
+
+</div>
+
+<script src="{% static 'js/page-transitions.js' %}" defer></script>
+{% block extra_scripts %}{% endblock %}
+</body>
+</html>
