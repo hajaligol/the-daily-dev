@@ -97,10 +97,6 @@ class Article(models.Model):
         verbose_name="Article image alt text",
         help_text="Accessible description of the article image.",
     )
-    page_reference = models.PositiveIntegerField(
-        default=1,
-        help_text="Page number shown in the 'Read more on page X' link.",
-    )
     order = models.PositiveIntegerField(
         default=0,
         help_text="Controls the position of the article in the listing (lower shows first).",

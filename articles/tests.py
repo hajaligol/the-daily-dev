@@ -12,7 +12,6 @@ def make_article(**overrides):
         content="<p>Hello world.</p>",
         image="articles/wizard-hat.webp",
         image_alt="A test illustration",
-        page_reference=1,
         order=0,
         is_published=True,
     )

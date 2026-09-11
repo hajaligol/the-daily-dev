@@ -10,7 +10,6 @@ class ArticleAdmin(admin.ModelAdmin):
         "title",
         "category",
         "order",
-        "page_reference",
         "is_published",
         "image_preview",
         "updated_at",
@@ -52,7 +51,7 @@ class ArticleAdmin(admin.ModelAdmin):
         ),
         (
             "Placement",
-            {"fields": ("page_reference", "order")},
+            {"fields": ("order",)},
         ),
         (
             "Timestamps",
