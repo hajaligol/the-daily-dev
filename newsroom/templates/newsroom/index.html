@@ -35,14 +35,14 @@
 
       <article class="story">
         <h3 class="breaking-title">Breaking:</h3>
-        <p class="breaking-sub">Python Spotted<br>Skipping Semicolons</p>
-        <p class="story-body">After years of dutiful service elsewhere, the semicolon has been formally relieved of duty in yet another codebase.</p>
-        <p class="story-body">&ldquo;We just&hellip; indent now,&rdquo; said one convert, &ldquo;and somehow, it works.&rdquo;</p>
+        <p class="breaking-sub">Local Dev Achieves<br>Full Python Enlightenment</p>
+        <p class="story-body">Sources confirm our developer has not typed a semicolon in over a year, expressing himself entirely through impeccably indented whitespace.</p>
+        <p class="story-body">&ldquo;He speaks fluent list comprehension,&rdquo; admits a colleague. &ldquo;We just nod and hope for the best.&rdquo;</p>
       </article>
 
-      <div class="punct-ornament">
-        <div class="punct-rays-wrap">
-          <img class="punct-semicolon" src="{% static 'images/semicolon.webp' %}" alt="Semicolon">
+      <div class="python-ornament">
+        <div class="python-rays-wrap">
+          <img class="python-icon" src="{% static 'images/python.webp' %}" alt="Semicolon">
         </div>
         <div class="ribbon">Indentation Matters</div>
       </div>
@@ -61,21 +61,21 @@
     <!-- ---------- RIGHT COLUMN ---------- -->
     <aside class="col-right">
       <article class="story">
-        <h3 class="story-title">Unicorns<br>Now Run<br>on Django</h3>
-        <img class="byline-icon unicorn-icon" src="{% static 'images/unicorn.webp' %}" alt="Vintage engraved unicorn illustration">
-        <p class="story-body">In a stunning turn of events, mythical beasts have traded chaos magic for a framework that ships with its own admin panel.</p>
-        <p class="story-body"><strong>Batteries: Included.</strong></p>
+        <h3 class="story-title">Developer<br>Bends Django<br>to His Will</h3>
+        <img class="byline-icon django-icon" src="{% static 'images/django.webp' %}" alt="Vintage engraved unicorn illustration">
+        <p class="story-body">Sources close to the scene report an entire admin panel, login system, and database schema appearing before lunch, apparently through sheer force of will.</p>
+        <p class="story-body"><strong>Docs Read: Never. Confidence: Absolute.</strong></p>
       </article>
 
       <div class="rule-thin"></div>
 
       <article class="story">
-        <h3 class="story-title">Vibe Coding</h3>
-        <p class="story-sub">Prompt Now, Panic Later</p>
+        <h3 class="story-title">Certified<br>Vibe Coder</h3>
+        <p class="story-sub">Consults The Orb</p>
 
-        <img class="byline-icon small coffee-icon" src="{% static 'images/coffee.webp' %}" alt="Vintage engraved teapot illustration">
+        <!-- <img class="byline-icon small coffee-icon" src="{% static 'images/coffee.webp' %}" alt="Vintage engraved crystal ball illustration"> -->
 
-        <p class="story-body">&ldquo;The Prompt&rdquo; swears it was clear.<br>&ldquo;The Code&rdquo; mostly agrees.<br>&ldquo;The Bug&rdquo; is now a feature.<br>&ldquo;The Deadline&rdquo; was yesterday.</p>
+        <p class="story-body">&ldquo;I don&rsquo;t debug,&rdquo; he says, &ldquo;I commune.&rdquo;<br>&ldquo;It compiled. Clearly, it was fated.&rdquo;<br>&ldquo;Tests are for skeptics.&rdquo;<br>&ldquo;Documentation arrives when the orb allows.&rdquo;</p>
       </article>
     </aside>
 
@@ -96,7 +96,6 @@
       </span>
       <h4>{{ article.title }}</h4>
       <p class="footer-body">{{ article.excerpt|truncatewords:16 }}</p>
-      <p class="footer-note footer-post-reference">Read more on page {{ article.page_reference }} &#10148;</p>
     </a>
     {% endfor %}
 
