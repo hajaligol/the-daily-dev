@@ -5,14 +5,28 @@ from .models import Article
 
 class ArticleListView(ListView):
     """Renders the 'From Our Desk' article listing page — published articles
-    presented as a two-column newspaper features page."""
+    presented as a two-column newspaper features page, six to a page."""
 
     model = Article
     template_name = "articles/article_list.html"
     context_object_name = "articles"
+    paginate_by = 6
 
     def get_queryset(self):
         return Article.objects.filter(is_published=True).select_related("category")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # A trailing page can hold fewer than `paginate_by` articles (e.g.
+        # only 1 on the last page). Without help the two-column grid then
+        # runs shorter than a full page, so the page visibly changes
+        # length as you paginate. `placeholder_range` fills out the
+        # remaining grid slots with invisible placeholders that reserve
+        # the same space a real article would take up, keeping every
+        # page the same length regardless of how many articles it holds.
+        articles_on_page = len(context.get(self.context_object_name) or [])
+        context["placeholder_range"] = range(max(0, self.paginate_by - articles_on_page))
+        return context
 
 
 class ArticleDetailView(DetailView):

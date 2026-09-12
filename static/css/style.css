@@ -970,6 +970,13 @@ svg .soft {
   color: var(--ink-soft);
 }
 
+/* invisible filler for a short final page — keeps every page of the grid
+   the same length by reserving the space a real article would occupy,
+   without showing a border, illustration frame, or text */
+.blog-post-placeholder {
+  visibility: hidden;
+}
+
 /* ---- footer ---- */
 .blog-footer {
   display: flex;
@@ -1006,6 +1013,67 @@ svg .soft {
   letter-spacing: .08em;
 }
 
+/* ---- pagination (replaces the footer on the article list page) ---- */
+.blog-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  padding-top: 10px;
+}
+
+.blog-pagination-arrow {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: opacity .15s ease;
+}
+
+.blog-pagination-arrow img {
+  width: clamp(20px, 3vw, 30px);
+  height: auto;
+  display: block;
+}
+
+.blog-pagination-arrow:hover {
+  opacity: .65;
+}
+
+.blog-pagination-arrow.is-disabled {
+  opacity: .25;
+  pointer-events: none;
+}
+
+.blog-pagination-pages {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.blog-pagination-page {
+  font-family: var(--font-label);
+  font-weight: 1000;
+  font-size: .85rem;
+  letter-spacing: .04em;
+  color: var(--ink-soft);
+  text-decoration: none;
+  min-width: 1.2em;
+  text-align: center;
+}
+
+.blog-pagination-page:hover {
+  color: var(--ink);
+  text-decoration: underline;
+}
+
+.blog-pagination-page.is-current {
+  color: var(--ink);
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 1px;
+}
+
 /* ---- responsive ---- */
 @media (max-width: 780px) {
   .blog-post-image {
@@ -1037,6 +1105,12 @@ svg .soft {
     border-top: 1px solid var(--ink);
   }
 
+  /* on the single-column mobile layout there's no side-by-side row to
+     keep in sync, so filler slots would just be blank gaps — hide them */
+  .blog-post-placeholder {
+    display: none;
+  }
+
   .blog-footer {
     flex-wrap: wrap;
   }
@@ -1046,6 +1120,16 @@ svg .soft {
     width: 100%;
     text-align: center;
     margin-top: 6px;
+  }
+
+  .blog-pagination {
+    gap: 14px;
+  }
+
+  .blog-pagination-pages {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 14px;
   }
 }
 

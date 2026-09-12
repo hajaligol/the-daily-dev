@@ -42,9 +42,52 @@
       </div>
     </a>
     {% endfor %}
+    {% for _ in placeholder_range %}
+    <div class="blog-post blog-post-placeholder" aria-hidden="true">
+      <span class="blog-post-image"></span>
+      <div class="blog-post-content"></div>
+    </div>
+    {% endfor %}
   </main>
 
   <div class="rule-thick"></div>
 
+  {% if is_paginated %}
+  <!-- ============================================================
+       ARTICLE LIST PAGINATION (replaces the site footer here)
+       ============================================================ -->
+  <nav class="blog-pagination" aria-label="Article list pages">
+    {% if page_obj.has_previous %}
+    <a class="blog-pagination-arrow blog-pagination-prev" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous page">
+      <img src="{% static 'images/left-pointing-hand.webp' %}" alt="">
+    </a>
+    {% else %}
+    <span class="blog-pagination-arrow blog-pagination-prev is-disabled" aria-hidden="true">
+      <img src="{% static 'images/left-pointing-hand.webp' %}" alt="">
+    </span>
+    {% endif %}
+
+    <div class="blog-pagination-pages">
+      {% for num in paginator.page_range %}
+        {% if num == page_obj.number %}
+        <span class="blog-pagination-page is-current" aria-current="page">{{ num }}</span>
+        {% else %}
+        <a class="blog-pagination-page" href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {% if page_obj.has_next %}
+    <a class="blog-pagination-arrow blog-pagination-next" href="?page={{ page_obj.next_page_number }}" aria-label="Next page">
+      <img src="{% static 'images/right-pointing-hand.webp' %}" alt="">
+    </a>
+    {% else %}
+    <span class="blog-pagination-arrow blog-pagination-next is-disabled" aria-hidden="true">
+      <img src="{% static 'images/right-pointing-hand.webp' %}" alt="">
+    </span>
+    {% endif %}
+  </nav>
+  {% else %}
   {% include "partials/site_footer.html" with footer_page_number=3 %}
+  {% endif %}
 {% endblock %}
