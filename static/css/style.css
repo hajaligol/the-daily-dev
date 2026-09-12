@@ -2169,11 +2169,11 @@ html.fade-in .newspaper {
    content isn't exposed to assistive tech) so it never touches click,
    focus or keyboard behaviour. The masthead link is explicitly excluded.
    ========================================================================== */
-a[href]:not(.masthead-link, .nav-link, .side-box, .channel-handle) {
+a[href]:not(.masthead-link, .nav-link, .side-box, .channel-handle, .blog-pagination-arrow, .blog-pagination-page) {
   position: relative;
 }
 
-a[href]:not(.masthead-link, .nav-link, .side-box, .channel-handle)::after {
+a[href]:not(.masthead-link, .nav-link, .side-box, .channel-handle, .blog-pagination-arrow, .blog-pagination-page)::after {
   content: "";
   position: absolute;
   inset: -12%;
@@ -2189,14 +2189,14 @@ a[href]:not(.masthead-link, .nav-link, .side-box, .channel-handle)::after {
   transition: opacity .18s ease;
 }
 
-a[href]:not(.masthead-link, .nav-link, .side-box, .channel-handle):hover::after,
-a[href]:not(.masthead-link, .nav-link, .side-box, .channel-handle):focus-visible::after {
+a[href]:not(.masthead-link, .nav-link, .side-box, .channel-handle, .blog-pagination-arrow, .blog-pagination-page):hover::after,
+a[href]:not(.masthead-link, .nav-link, .side-box, .channel-handle, .blog-pagination-arrow, .blog-pagination-page):focus-visible::after {
   opacity: 1;
   scale: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  a[href]:not(.masthead-link, .nav-link, .side-box, .channel-handle)::after {
+  a[href]:not(.masthead-link, .nav-link, .side-box, .channel-handle, .blog-pagination-arrow, .blog-pagination-page)::after {
     transition: opacity .01ms linear;
     scale: 1;
   }
