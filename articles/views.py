@@ -50,13 +50,20 @@ class ArticleDetailView(DetailView):
         article = self.object
         published = Article.objects.filter(is_published=True)
 
+        # Articles are listed newest-first, so "previous" (appears earlier
+        # on the list) is the next-more-recent article, and "next" (appears
+        # later on the list) is the next-older one.
         context["previous_article"] = (
-            published.filter(order__lt=article.order).order_by("-order").first()
+            published.filter(created_at__gt=article.created_at)
+            .order_by("created_at")
+            .first()
         )
         context["next_article"] = (
-            published.filter(order__gt=article.order).order_by("order").first()
+            published.filter(created_at__lt=article.created_at)
+            .order_by("-created_at")
+            .first()
         )
         context["related_articles"] = (
-            published.exclude(pk=article.pk).order_by("order")[:3]
+            published.exclude(pk=article.pk).order_by("-created_at")[:3]
         )
         return context

@@ -123,10 +123,6 @@ class Article(models.Model):
         verbose_name="Article image alt text",
         help_text="Accessible description of the article image.",
     )
-    order = models.PositiveIntegerField(
-        default=0,
-        help_text="Controls the position of the article in the listing (lower shows first).",
-    )
     is_published = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -134,7 +130,7 @@ class Article(models.Model):
     class Meta:
         verbose_name = "Article"
         verbose_name_plural = "Articles"
-        ordering = ["order", "-created_at"]
+        ordering = ["-created_at"]
 
     def __str__(self):
         return self.title

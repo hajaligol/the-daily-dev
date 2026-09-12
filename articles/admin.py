@@ -16,17 +16,16 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display = (
         "title",
         "category",
-        "order",
         "is_published",
         "image_preview",
         "updated_at",
     )
     list_display_links = ("title",)
-    list_editable = ("order", "is_published")
+    list_editable = ("is_published",)
     list_filter = ("is_published", "category")
     search_fields = ("title", "category__name", "excerpt", "topics__name")
     prepopulated_fields = {"slug": ("title",)}
-    ordering = ("order", "-created_at")
+    ordering = ("-created_at",)
     readonly_fields = ("created_at", "updated_at", "image_preview")
     date_hierarchy = "created_at"
 
@@ -55,10 +54,6 @@ class ArticleAdmin(admin.ModelAdmin):
         (
             "Image",
             {"fields": ("image", "image_preview", "image_alt")},
-        ),
-        (
-            "Placement",
-            {"fields": ("order",)},
         ),
         (
             "Timestamps",
