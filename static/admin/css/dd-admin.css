@@ -1,0 +1,1022 @@
+/* ==========================================================================
+   THE DAILY DEV — DJANGO ADMIN THEME
+   "Newsroom Control Desk"
+
+   Re-skins the stock Django admin to match the public site's dark
+   ink-on-paper newspaper identity: paper backgrounds, hairline ink rules,
+   uppercase small-caps labels, hard square edges (no radius, no drop
+   shadows), the masthead wordmark, and the site's cursor + hover-mark
+   details. Structural admin behaviour (JS widgets, filters, inlines,
+   permissions) is untouched — this file is presentation only.
+
+   Section index:
+     0. Tokens
+     1. Admin CSS-variable remap (colors admin itself drives via var())
+     2. Page frame / paper sheet / texture / cursor
+     3. Header & branding
+     4. Breadcrumbs
+     5. Nav sidebar (apps & models)
+     6. Dashboard & module tables (shared by index + sidebar)
+     7. Changelist (results table, filters, actions, search, object-tools)
+     8. Forms (fieldsets, fields, help text, errors)
+     9. Buttons
+    10. Pagination
+    11. Messages & alerts
+    12. Login page
+    13. Misc widgets (calendar/clock, selectors, inlines, related lookups)
+    14. Hover mark (red editor's-pen circle)
+    15. Responsive
+   ========================================================================== */
+
+/* ==========================================================================
+   0. TOKENS
+   ========================================================================== */
+:root {
+  --dd-paper: #efe7d3;
+  --dd-paper-deep: #e6dcc3;
+  --dd-ink: #1c1912;
+  --dd-ink-soft: #38342a;
+  --dd-ink-faint: #6a6353;
+  --dd-rule: #201c14;
+  --dd-red: #b71f1f;
+  --dd-red-deep: #8f1717;
+
+  --dd-font-serif: Georgia, "Times New Roman", Times, serif;
+  --dd-font-label: Georgia, "Times New Roman", Times, serif;
+  --dd-font-head: Impact, "Arial Narrow", "Roboto Condensed", Georgia, serif;
+  --dd-font-mast: "Old English Text MT", "Cloister Black", "UnifrakturMaester", "Blackletter", "Cambria", serif;
+}
+
+/* ==========================================================================
+   1. ADMIN CSS-VARIABLE REMAP
+   Django's own admin CSS is variable-driven; overriding the same custom
+   properties recolors most of the UI (buttons, links, headers, tables)
+   for free, before any structural overrides below. Forced identically
+   for both color-scheme states so the site's toggle can't break the theme.
+   ========================================================================== */
+:root,
+html[data-theme="light"],
+html[data-theme="dark"] {
+  --primary: var(--dd-ink);
+  --secondary: var(--dd-ink-soft);
+  --accent: var(--dd-red);
+  --primary-fg: var(--dd-paper);
+
+  --body-fg: var(--dd-ink);
+  --body-bg: var(--dd-paper);
+  --body-quiet-color: var(--dd-ink-faint);
+  --body-loud-color: var(--dd-ink);
+
+  --header-color: var(--dd-paper);
+  --header-branding-color: var(--dd-ink);
+  --header-bg: var(--dd-paper);
+  --header-link-color: var(--dd-ink);
+
+  --breadcrumbs-fg: var(--dd-ink-soft);
+  --breadcrumbs-link-fg: var(--dd-ink);
+  --breadcrumbs-bg: var(--dd-paper-deep);
+
+  --link-fg: var(--dd-ink-soft);
+  --link-hover-color: var(--dd-ink);
+  --link-selected-fg: var(--dd-ink);
+
+  --hairline-color: var(--dd-ink);
+  --border-color: var(--dd-ink);
+
+  --error-fg: var(--dd-red);
+
+  --message-success-bg: var(--dd-paper-deep);
+  --message-warning-bg: var(--dd-paper-deep);
+  --message-error-bg: var(--dd-paper-deep);
+
+  --darkened-bg: var(--dd-paper-deep);
+  --selected-bg: var(--dd-paper-deep);
+  --selected-row: #ddd0ac;
+
+  --button-fg: var(--dd-paper);
+  --button-bg: var(--dd-ink);
+  --button-hover-bg: var(--dd-ink-soft);
+  --default-button-bg: var(--dd-ink);
+  --default-button-hover-bg: var(--dd-ink-soft);
+  --close-button-bg: var(--dd-ink-faint);
+  --close-button-hover-bg: var(--dd-ink-soft);
+  --delete-button-bg: var(--dd-red);
+  --delete-button-hover-bg: var(--dd-red-deep);
+
+  --object-tools-fg: var(--dd-paper);
+  --object-tools-bg: var(--dd-ink);
+  --object-tools-hover-bg: var(--dd-ink-soft);
+
+  --font-family-primary: var(--dd-font-serif);
+  --font-family-monospace: "Courier New", Courier, monospace;
+}
+
+/* ==========================================================================
+   2. PAGE FRAME / PAPER SHEET / TEXTURE / CURSOR
+   ========================================================================== */
+html,
+body {
+  cursor: url("../../images/cursor-nib.svg") 13 1, auto;
+}
+
+body {
+  background: #cfc7b3;
+  background-image: radial-gradient(ellipse at 50% -10%, #ded6c0 0%, #cfc7b3 60%);
+  font-family: var(--dd-font-serif) !important;
+}
+
+a,
+button,
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+input[type="checkbox"],
+input[type="radio"],
+select,
+label[for],
+.button,
+[role="button"] {
+  cursor: url("../../images/cursor-magnifier.svg") 9 9, pointer;
+}
+
+#container {
+  position: relative;
+  max-width: 1360px;
+  margin: 28px auto 60px;
+  background: var(--dd-paper);
+  border: 1px solid var(--dd-ink);
+  outline: 5px solid var(--dd-paper);
+  outline-offset: -9px;
+  box-shadow:
+    0 2px 0 var(--dd-ink) inset,
+    0 22px 45px -18px rgba(0, 0, 0, .55),
+    0 2px 6px rgba(0, 0, 0, .25);
+  min-height: 0;
+}
+
+#container::before {
+  /* film-grain, matches the public site's .grain layer */
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: .14;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 220px 220px;
+}
+
+#container::after {
+  /* faint foxing/age blotches, matches the public site's .foxing layer */
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle at 8% 14%, rgba(120, 100, 60, .10) 0, transparent 9%),
+    radial-gradient(circle at 92% 22%, rgba(120, 100, 60, .08) 0, transparent 11%),
+    radial-gradient(circle at 18% 88%, rgba(120, 100, 60, .09) 0, transparent 10%),
+    radial-gradient(circle at 80% 92%, rgba(120, 100, 60, .07) 0, transparent 12%);
+}
+
+#container > * {
+  position: relative;
+  z-index: 1;
+}
+
+#main,
+.main {
+  background: transparent;
+}
+
+#content {
+  padding: 20px 30px 30px;
+}
+
+#footer {
+  padding: 10px 30px 4px;
+}
+
+/* Kill Django's built-in light/dark toggle — this theme is fixed, like the
+   public site — but leave the control reachable rather than removing it. */
+#theme-toggle,
+.theme-toggle {
+  opacity: .55;
+  filter: grayscale(1);
+}
+
+/* ==========================================================================
+   3. HEADER & BRANDING
+   ========================================================================== */
+#header {
+  background: var(--dd-paper);
+  color: var(--dd-ink);
+  border-bottom: 3px solid var(--dd-ink);
+  padding: 18px 30px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+#branding {
+  text-align: center;
+}
+
+#branding h1,
+#branding h1 a:link,
+#branding h1 a:visited {
+  color: var(--dd-ink);
+}
+
+.dd-admin-brand {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: var(--dd-ink);
+}
+
+.dd-admin-brand-mark {
+  height: 46px;
+  width: auto;
+  display: block;
+  filter: none;
+}
+
+.dd-admin-brand-sub {
+  font-family: var(--dd-font-label);
+  font-weight: 700;
+  font-size: .66rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--dd-ink-faint);
+}
+
+#user-tools {
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--dd-font-label);
+  font-size: .72rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--dd-ink-soft);
+}
+
+#user-tools a {
+  color: var(--dd-ink);
+  border-bottom: 1px solid var(--dd-ink-faint);
+  text-decoration: none;
+  padding: 1px 2px;
+}
+
+#user-tools a:hover,
+#user-tools a:focus {
+  background: var(--dd-ink);
+  color: var(--dd-paper);
+  border-bottom-color: var(--dd-ink);
+}
+
+#user-tools form#logout-form button {
+  font-family: var(--dd-font-label);
+  font-size: .72rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--dd-ink);
+  border-bottom: 1px solid var(--dd-ink-faint);
+  padding: 1px 2px;
+}
+
+#user-tools form#logout-form button:hover {
+  background: var(--dd-ink);
+  color: var(--dd-paper);
+}
+
+/* ==========================================================================
+   4. BREADCRUMBS
+   ========================================================================== */
+div.breadcrumbs {
+  background: var(--dd-paper-deep);
+  color: var(--dd-ink-soft);
+  border-top: 2.5px solid var(--dd-ink);
+  border-bottom: 2.5px solid var(--dd-ink);
+  padding: 7px 30px;
+  font-family: var(--dd-font-label);
+  font-weight: 700;
+  font-size: .7rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+div.breadcrumbs a {
+  color: var(--dd-ink-soft);
+}
+
+div.breadcrumbs a:hover,
+div.breadcrumbs a:focus {
+  color: var(--dd-ink);
+}
+
+/* ==========================================================================
+   5. NAV SIDEBAR (apps & models)
+   ========================================================================== */
+#nav-sidebar {
+  background: var(--dd-paper);
+  border-right: 1.5px solid var(--dd-ink);
+}
+
+#nav-sidebar .module {
+  border-bottom: 1px solid var(--dd-ink-faint);
+}
+
+#nav-sidebar-toggle {
+  background: var(--dd-ink);
+  color: var(--dd-paper);
+  border-radius: 0;
+}
+
+#nav-filter-form input {
+  border: 1.4px solid var(--dd-ink);
+  background: var(--dd-paper-deep);
+  border-radius: 0;
+  font-family: var(--dd-font-serif);
+  color: var(--dd-ink);
+}
+
+.current-model #nav-sidebar .current-app .section:not(:hover),
+#nav-sidebar .current-model a {
+  color: var(--dd-ink);
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   6. DASHBOARD & MODULE TABLES (shared by index page + nav sidebar)
+   ========================================================================== */
+.module {
+  border-radius: 0 !important;
+}
+
+.module h2,
+.module caption,
+.inline-group h2 {
+  background: var(--dd-ink) !important;
+  color: var(--dd-paper) !important;
+  font-family: var(--dd-font-label);
+  font-weight: 700;
+  font-size: .74rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  border-radius: 0;
+}
+
+.module caption a,
+.module caption a:link {
+  color: var(--dd-paper) !important;
+}
+
+.module table,
+#nav-sidebar table {
+  background: transparent;
+}
+
+.module table th,
+.module table td,
+#nav-sidebar table th,
+#nav-sidebar table td {
+  border-bottom: 1px solid var(--dd-ink-faint);
+  background: transparent !important;
+  font-family: var(--dd-font-serif);
+}
+
+.module table th a,
+#nav-sidebar table th a {
+  color: var(--dd-ink);
+  font-weight: 700;
+}
+
+.module table td a,
+#nav-sidebar table td a {
+  font-family: var(--dd-font-label);
+  font-size: .68rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--dd-ink-soft);
+}
+
+#content-related .module {
+  background: var(--dd-paper-deep);
+  border: 1px solid var(--dd-ink);
+}
+
+.dashboard #content-main > .module {
+  border: 1px solid var(--dd-ink);
+  margin-bottom: 22px;
+}
+
+/* ==========================================================================
+   7. CHANGELIST
+   ========================================================================== */
+#changelist {
+  background: transparent;
+}
+
+#toolbar {
+  background: var(--dd-paper-deep);
+  border: 1.4px solid var(--dd-ink);
+  padding: 10px 12px;
+  border-radius: 0;
+}
+
+#toolbar #searchbar {
+  border: 1.4px solid var(--dd-ink);
+  background: var(--dd-paper);
+  border-radius: 0;
+  font-family: var(--dd-font-serif);
+  color: var(--dd-ink);
+  padding: 6px 8px;
+}
+
+#toolbar input[type="submit"] {
+  border-radius: 0;
+}
+
+.object-tools {
+  margin-top: 4px;
+}
+
+.object-tools a.addlink,
+.object-tools a {
+  background: var(--dd-ink) !important;
+  color: var(--dd-paper) !important;
+  font-family: var(--dd-font-label);
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border-radius: 0 !important;
+  border: 1.4px solid var(--dd-ink);
+  padding: 7px 14px;
+}
+
+.object-tools a:hover,
+.object-tools a:focus {
+  background: var(--dd-paper) !important;
+  color: var(--dd-ink) !important;
+}
+
+#changelist-filter {
+  background: var(--dd-paper-deep);
+  border: 1.4px solid var(--dd-ink);
+  border-radius: 0;
+}
+
+#changelist-filter h2,
+#changelist-filter h3 {
+  font-family: var(--dd-font-label);
+  font-weight: 700;
+  font-size: .7rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--dd-ink);
+  border-bottom: 1px solid var(--dd-ink-faint);
+  padding-bottom: 6px;
+}
+
+#changelist-filter li.selected a {
+  color: var(--dd-ink);
+  font-weight: 700;
+  border-left-color: var(--dd-ink);
+}
+
+#changelist-filter a {
+  color: var(--dd-ink-soft);
+}
+
+#changelist .actions {
+  background: var(--dd-paper-deep);
+  border: 1.4px solid var(--dd-ink);
+  border-top: none;
+  padding: 8px 12px;
+  border-radius: 0;
+}
+
+#changelist .actions select {
+  border: 1.4px solid var(--dd-ink);
+  background: var(--dd-paper);
+  border-radius: 0;
+  font-family: var(--dd-font-serif);
+}
+
+#result_list {
+  border: 1.4px solid var(--dd-ink);
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#result_list thead th {
+  background: var(--dd-ink);
+  border-bottom: none;
+}
+
+#result_list thead th,
+#result_list thead th a,
+#result_list thead th a:link {
+  color: var(--dd-paper) !important;
+  font-family: var(--dd-font-label);
+  font-weight: 700;
+  font-size: .68rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+#result_list thead th .text a {
+  color: var(--dd-paper);
+}
+
+#result_list tbody tr {
+  background: var(--dd-paper) !important;
+}
+
+#result_list tbody tr.row2 {
+  background: var(--dd-paper-deep) !important;
+}
+
+#result_list tbody th,
+#result_list tbody td {
+  border-bottom: 1px solid var(--dd-ink-faint);
+  font-family: var(--dd-font-serif);
+  color: var(--dd-ink);
+}
+
+#result_list tbody th a,
+#result_list tbody td a {
+  color: var(--dd-ink-soft);
+}
+
+#result_list tbody th a:hover,
+#result_list tbody td a:hover {
+  color: var(--dd-ink);
+}
+
+#result_list tr:hover {
+  background: var(--dd-paper-deep) !important;
+}
+
+.sortoptions a.sortremove,
+.sortoptions a.ascending,
+.sortoptions a.descending {
+  filter: none;
+}
+
+/* ==========================================================================
+   8. FORMS
+   ========================================================================== */
+fieldset.module,
+.aligned fieldset,
+form .module {
+  border: 1.4px solid var(--dd-ink);
+  border-radius: 0;
+  background: var(--dd-paper);
+}
+
+.form-row {
+  border-bottom: 1px solid var(--dd-ink-faint);
+}
+
+label {
+  font-family: var(--dd-font-label);
+  font-weight: 700;
+  font-size: .74rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--dd-ink);
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="url"],
+input[type="number"],
+input[type="tel"],
+input[type="search"],
+input[type="file"],
+textarea,
+select,
+.vTextField,
+.vLargeTextField,
+.vURLField,
+.vDateField,
+.vTimeField {
+  border: 1.4px solid var(--dd-ink) !important;
+  background: var(--dd-paper-deep) !important;
+  color: var(--dd-ink) !important;
+  font-family: var(--dd-font-serif) !important;
+  border-radius: 0 !important;
+  padding: 7px 9px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+  border-width: 2px !important;
+  box-shadow: 0 0 0 1px var(--dd-ink) !important;
+}
+
+.help,
+p.help,
+div.help,
+.helptext {
+  font-family: var(--dd-font-serif);
+  font-style: italic;
+  font-size: .78rem;
+  color: var(--dd-ink-faint);
+}
+
+.errorlist {
+  background: transparent;
+  color: var(--dd-red);
+  font-family: var(--dd-font-serif);
+  font-style: italic;
+}
+
+.errorlist li {
+  background: var(--dd-paper-deep);
+  border-left: 3px solid var(--dd-red);
+  padding: 5px 9px;
+  margin-bottom: 3px;
+}
+
+.errors input,
+.errors select,
+.errors textarea,
+div.errors input {
+  border-color: var(--dd-red) !important;
+}
+
+.required label:after,
+label.required:after {
+  color: var(--dd-red);
+}
+
+/* ==========================================================================
+   9. BUTTONS
+   ========================================================================== */
+.submit-row {
+  background: var(--dd-paper-deep);
+  border: 1.4px solid var(--dd-ink);
+  border-radius: 0;
+}
+
+.button,
+input[type="submit"],
+input[type="button"],
+.submit-row input,
+.submit-row a {
+  background: var(--dd-ink) !important;
+  color: var(--dd-paper) !important;
+  font-family: var(--dd-font-label);
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  border: 1.4px solid var(--dd-ink) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+.button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.submit-row input:hover,
+.submit-row a:hover {
+  background: var(--dd-paper) !important;
+  color: var(--dd-ink) !important;
+}
+
+.button.default,
+input[type="submit"].default,
+.submit-row input.default {
+  background: var(--dd-ink) !important;
+  border: 1.4px solid var(--dd-ink) !important;
+}
+
+.deletelink,
+.submit-row .deletelink {
+  background: var(--dd-paper) !important;
+  color: var(--dd-red) !important;
+  border: 1.4px solid var(--dd-red) !important;
+}
+
+.deletelink:hover {
+  background: var(--dd-red) !important;
+  color: var(--dd-paper) !important;
+}
+
+a.addlink,
+a.changelink,
+a.viewlink {
+  font-family: var(--dd-font-label);
+  font-size: .68rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   10. PAGINATION
+   ========================================================================== */
+.paginator {
+  background: transparent;
+  border-top: 2px solid var(--dd-ink);
+  padding: 10px 0 0;
+  font-family: var(--dd-font-label);
+  font-size: .78rem;
+  letter-spacing: .03em;
+  color: var(--dd-ink-soft);
+}
+
+.paginator a {
+  color: var(--dd-ink-soft);
+  padding: 2px 6px;
+}
+
+.paginator a:hover,
+.paginator a:focus {
+  background: var(--dd-ink);
+  color: var(--dd-paper);
+}
+
+.paginator .this-page {
+  font-weight: 700;
+  color: var(--dd-ink);
+  border-bottom: 2px solid var(--dd-ink);
+  padding: 2px 4px;
+}
+
+/* ==========================================================================
+   11. MESSAGES & ALERTS
+   ========================================================================== */
+ul.messagelist li {
+  background: var(--dd-paper-deep);
+  color: var(--dd-ink);
+  border: 1px solid var(--dd-ink);
+  border-left: 4px solid var(--dd-ink);
+  font-family: var(--dd-font-serif);
+  font-style: italic;
+  border-radius: 0;
+}
+
+ul.messagelist li.success {
+  border-left-color: var(--dd-ink);
+}
+
+ul.messagelist li.warning {
+  border-left-color: var(--dd-ink-soft);
+}
+
+ul.messagelist li.error {
+  border-left-color: var(--dd-red);
+  color: var(--dd-red-deep);
+}
+
+/* ==========================================================================
+   12. LOGIN PAGE
+   ========================================================================== */
+body.login {
+  background: #cfc7b3;
+  background-image: radial-gradient(ellipse at 50% -10%, #ded6c0 0%, #cfc7b3 60%);
+}
+
+body.login #container {
+  max-width: 420px;
+  margin: 8vh auto;
+}
+
+body.login #header {
+  justify-content: center;
+  border-bottom: 3px solid var(--dd-ink);
+}
+
+.login .dd-admin-brand-mark {
+  height: 40px;
+}
+
+.login #content {
+  padding: 26px 28px 30px;
+}
+
+.login .form-row {
+  border-bottom: none;
+  padding: 0 0 12px;
+}
+
+.login .form-row label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.login .submit-row {
+  background: transparent;
+  border: none;
+  padding: 8px 0 0;
+  text-align: center;
+}
+
+.login .submit-row input {
+  width: 100%;
+  padding: 10px 14px;
+}
+
+.login .errornote {
+  border: 1.4px solid var(--dd-red);
+  background: var(--dd-paper-deep);
+  color: var(--dd-red-deep);
+  font-family: var(--dd-font-serif);
+  font-style: italic;
+  border-radius: 0;
+  padding: 8px 10px;
+  margin-bottom: 14px;
+}
+
+.login br {
+  display: none;
+}
+
+/* ==========================================================================
+   13. MISC WIDGETS
+   ========================================================================== */
+.calendarbox,
+.clockbox {
+  border: 1.4px solid var(--dd-ink);
+  background: var(--dd-paper);
+  border-radius: 0;
+}
+
+.calendar caption {
+  background: var(--dd-ink);
+  color: var(--dd-paper);
+  font-family: var(--dd-font-label);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.calendar td a {
+  color: var(--dd-ink);
+}
+
+.calendar td.selected a {
+  background: var(--dd-ink);
+  color: var(--dd-paper);
+}
+
+.timelist a {
+  background: var(--dd-paper-deep);
+  border: 1px solid var(--dd-ink);
+}
+
+.related-widget-wrapper .button,
+.related-lookup {
+  border-radius: 0;
+}
+
+.selector .selector-available h2,
+.selector .selector-chosen h2 {
+  background: var(--dd-ink) !important;
+  color: var(--dd-paper) !important;
+  font-family: var(--dd-font-label);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.selector-filter input {
+  border-radius: 0;
+}
+
+.inline-group {
+  border: 1.4px solid var(--dd-ink);
+}
+
+.inline-related h3 {
+  background: var(--dd-paper-deep) !important;
+  border-bottom: 1px solid var(--dd-ink);
+  font-family: var(--dd-font-label);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--dd-ink) !important;
+}
+
+.tabular tr.form-row {
+  border-bottom: 1px solid var(--dd-ink-faint);
+}
+
+/* taggit widget */
+.tagit,
+ul.tagit {
+  border: 1.4px solid var(--dd-ink) !important;
+  background: var(--dd-paper-deep) !important;
+  border-radius: 0 !important;
+}
+
+.tagit .tagit-choice {
+  background: var(--dd-ink) !important;
+  color: var(--dd-paper) !important;
+  border-radius: 0 !important;
+}
+
+/* ==========================================================================
+   14. HOVER MARK
+   Every plain content link in the admin gets circled in vintage red marker
+   on hover/focus, exactly like the public site — a small, deliberate
+   signature detail carried over rather than reinvented. Left off nav /
+   toolbar chrome so the working UI stays legible.
+   ========================================================================== */
+#result_list a,
+.module table td a,
+#content-related .module a,
+.paginator a,
+div.breadcrumbs a,
+#changelist-filter a {
+  position: relative;
+}
+
+#result_list a::after,
+.module table td a::after,
+#content-related .module a::after,
+.paginator a::after,
+div.breadcrumbs a::after,
+#changelist-filter a::after {
+  content: "";
+  position: absolute;
+  inset: -18%;
+  z-index: 20;
+  background-image: url("../../images/vintage_red_hand_drawn_circle.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  rotate: 4deg;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s ease;
+}
+
+#result_list a:hover::after,
+#result_list a:focus-visible::after,
+.module table td a:hover::after,
+.module table td a:focus-visible::after,
+#content-related .module a:hover::after,
+#content-related .module a:focus-visible::after,
+.paginator a:hover::after,
+.paginator a:focus-visible::after,
+div.breadcrumbs a:hover::after,
+div.breadcrumbs a:focus-visible::after,
+#changelist-filter a:hover::after,
+#changelist-filter a:focus-visible::after {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #result_list a::after,
+  .module table td a::after,
+  #content-related .module a::after,
+  .paginator a::after,
+  div.breadcrumbs a::after,
+  #changelist-filter a::after {
+    transition: opacity .01ms linear;
+  }
+}
+
+/* ==========================================================================
+   15. RESPONSIVE
+   ========================================================================== */
+@media (max-width: 767px) {
+  #container {
+    margin: 0;
+    max-width: 100%;
+    outline-offset: -6px;
+  }
+
+  #header {
+    padding: 14px 16px 12px;
+  }
+
+  #user-tools {
+    position: static;
+    transform: none;
+    margin-top: 8px;
+  }
+
+  #content {
+    padding: 14px 16px 24px;
+  }
+
+  div.breadcrumbs {
+    padding: 6px 16px;
+  }
+}

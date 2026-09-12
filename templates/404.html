@@ -7,24 +7,39 @@
 
 {% block content %}
   <div class="headline-block">
-    <h2 class="headline-line1">Missing Edition</h2>
+    <h2 class="headline-line1 headline-line-code">404!</h2>
+    <h2 class="headline-line1">Stop The Presses!</h2>
     <div class="rule-hair" style="width:60%;margin:8px auto 0;"></div>
-    <p class="subheadline">Page 404 &mdash; This Story Could Not Be Found on the Desk</p>
+    <p class="subheadline">A Story That Never Made It to Print</p>
   </div>
 
   <div class="rule-thick"></div>
 
   <main class="body-grid" style="text-align:center; padding: 3rem 1rem;">
     <section class="col-center" style="grid-column: 1 / -1;">
+      <figure class="editorial-illustration illustration-404-numerals">
+        <div class="illustration-frame">
+          <img
+            src="{% static 'images/engraving-of-the-404-numerals.webp' %}"
+            alt="A vintage engraved illustration of the numerals 404"
+          >
+        </div>
+      </figure>
+
       <p class="story-body">
-        The page you&rsquo;re looking for may have been moved, renamed, or
-        never existed at all &mdash; much like a semicolon nobody remembers
-        typing.
+        This just in: the page you were looking for has vanished without a
+        byline, a forwarding address, or so much as a note to the copy desk.
+      </p>
+      <p class="story-body">
+        Our finest reporters have been dispatched to investigate. Early
+        suspects include a rogue redirect, a misfiled folder, and a
+        semicolon nobody remembers typing. A full correction will run the
+        moment the truth is confirmed, denied, or quietly forgotten.
       </p>
       <p class="story-body">
         <a class="nav-link" href="{% url 'newsroom:index' %}">Return to the front page</a>
         &nbsp;&middot;&nbsp;
-        <a class="nav-link" href="{% url 'articles:list' %}">Browse stories from our desk</a>
+        <a class="nav-link" href="{% url 'articles:list' %}">Browse our back issues</a>
       </p>
     </section>
   </main>

@@ -11,6 +11,10 @@ from django.views.generic import TemplateView
 
 from articles.sitemaps import ArticleSitemap, StaticViewSitemap
 
+admin.site.site_header = "The Daily Dev"
+admin.site.site_title = "The Daily Dev — Admin"
+admin.site.index_title = "Newsroom Control Desk"
+
 
 def healthz(request):
     """Minimal liveness endpoint for container/orchestrator health checks.

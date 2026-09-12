@@ -2201,3 +2201,60 @@ a[href]:not(.masthead-link, .nav-link, .side-box, .channel-handle, .blog-paginat
     scale: 1;
   }
 }
+
+/* ==========================================================================
+   17. ERROR PAGES  ( 404 &mdash; scoped to .error-page only )
+   ========================================================================== */
+
+/* .headline-line1 is shared with the homepage banner and its clamp/nowrap
+   were tuned for that exact string, so none of it is edited directly.
+   This page renders "404!" and "STOP THE PRESSES!" as two separate decks
+   (the same stacking pattern the shared CSS already supports via
+   `.headline-line1 + .headline-line1`), each capped at a size with real
+   headroom under the narrowest column width the sheet ever reaches, plus
+   a hard `overflow-x: hidden` on the block itself as a backstop — so even
+   an unexpected font-fallback metrics case can't visually bleed past the
+   page edge, it would simply get clipped instead. */
+.error-page .headline-block {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+.error-page .headline-line1 {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  white-space: normal !important;
+  overflow-wrap: break-word;
+  word-break: normal;
+  text-align: center;
+  line-height: 1.05;
+  font-size: clamp(1.1rem, 6.2vw, 3rem);
+}
+
+.error-page .headline-line-code {
+  font-size: clamp(1.7rem, 11vw, 5.2rem);
+}
+
+/* engraving has a flat white background in the source file; multiply
+   blend drops the white out against the paper tone (the same trick the
+   grain layer uses), so it reads as printed on the page rather than
+   pasted on top of it */
+.illustration-404-numerals {
+  margin: 4px auto 22px;
+}
+
+.illustration-404-numerals .illustration-frame {
+  aspect-ratio: 1672 / 941;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.illustration-404-numerals .illustration-frame img {
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  filter: sepia(.12);
+}
+
+

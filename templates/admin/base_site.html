@@ -1,0 +1,24 @@
+{% extends "admin/base.html" %}
+{% load i18n static %}
+
+{% block title %}{{ title }} &middot; {{ site_title|default:"The Daily Dev — Admin" }}{% endblock %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'admin/css/dd-admin.css' %}">
+{% endblock %}
+
+{% block branding %}
+<div id="site-name">
+  <a href="{% url 'admin:index' %}" class="dd-admin-brand">
+    <img
+      src="{% static 'images/the-daily-dev-masthead.svg' %}"
+      alt="{{ site_header|default:'The Daily Dev' }}"
+      class="dd-admin-brand-mark"
+    >
+    <span class="dd-admin-brand-sub">Newsroom Control Desk</span>
+  </a>
+</div>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
