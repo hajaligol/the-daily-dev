@@ -1,13 +1,18 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from .models import Article, sanitize_article_html
+from .models import Article, Category, sanitize_article_html
 
 
 def make_article(**overrides):
+    category = overrides.pop("category", None)
+    if category is None:
+        category, _ = Category.objects.get_or_create(
+            name="Testing", defaults={"slug": "testing"}
+        )
     defaults = dict(
         title="Test Article",
-        category="Testing",
+        category=category,
         excerpt="A short teaser.",
         content="<p>Hello world.</p>",
         image="articles/wizard-hat.webp",

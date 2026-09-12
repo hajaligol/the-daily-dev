@@ -24,3 +24,6 @@ gunicorn>=23.0
 
 # Article HTML sanitization (defense-in-depth around admin-authored content)
 nh3>=0.2.18
+
+# Standard tag-management service for the article "Topics" field
+django-taggit>=6.1

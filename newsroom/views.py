@@ -22,7 +22,9 @@ class IndexView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["latest_articles"] = (
-            Article.objects.filter(is_published=True).order_by("-created_at")[:3]
+            Article.objects.filter(is_published=True)
+            .select_related("category")
+            .order_by("-created_at")[:3]
         )
         return context
 

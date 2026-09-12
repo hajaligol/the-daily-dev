@@ -12,7 +12,7 @@ class ArticleListView(ListView):
     context_object_name = "articles"
 
     def get_queryset(self):
-        return Article.objects.filter(is_published=True)
+        return Article.objects.filter(is_published=True).select_related("category")
 
 
 class ArticleDetailView(DetailView):
@@ -25,7 +25,11 @@ class ArticleDetailView(DetailView):
     slug_url_kwarg = "slug"
 
     def get_queryset(self):
-        return Article.objects.filter(is_published=True)
+        return (
+            Article.objects.filter(is_published=True)
+            .select_related("category")
+            .prefetch_related("topics")
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -35,10 +35,10 @@
         <p class="side-meta-label">Reading time</p>
         <p class="side-meta-value">{{ article.reading_time }} min read</p>
       </div>
-      {% if article.topics %}
+      {% if article.topics_display %}
       <div class="side-meta-block">
         <p class="side-meta-label">Topics</p>
-        <p class="side-meta-value">{{ article.topics }}</p>
+        <p class="side-meta-value">{{ article.topics_display }}</p>
       </div>
       {% endif %}
     </aside>

@@ -5,6 +5,7 @@ from django.db import models
 from django.utils.functional import cached_property
 from django.utils.html import strip_tags
 from django.utils.text import slugify
+from taggit.managers import TaggableManager
 
 # Marker used inside `Article.content` to say "the hero image + caption goes
 # here". The template no longer uses this to position the image inline —
@@ -54,13 +55,39 @@ def sanitize_article_html(raw_html):
     )
 
 
+class Category(models.Model):
+    """A newsroom section (e.g. 'Developer Journal') that articles belong to."""
+
+    name = models.CharField(
+        max_length=100,
+        unique=True,
+        help_text="Section label shown above an article's title, e.g. 'Developer Journal'.",
+    )
+    slug = models.SlugField(max_length=120, unique=True, blank=True)
+
+    class Meta:
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+
 class Article(models.Model):
     """A single newspaper-style article shown on the 'From Our Desk' page."""
 
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=220, unique=True, blank=True)
-    category = models.CharField(
-        max_length=100,
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.PROTECT,
+        related_name="articles",
         help_text="Section label shown above the title, e.g. 'Developer Journal'.",
     )
     excerpt = models.TextField(
@@ -78,13 +105,12 @@ class Article(models.Model):
             "article's own image should appear."
         ),
     )
-    topics = models.CharField(
-        max_length=255,
+    topics = TaggableManager(
         blank=True,
-        default="",
+        verbose_name="Topics",
         help_text=(
-            "Optional comma-separated topic tags shown in the side column, "
-            "e.g. 'Mindset, Debugging, Logs, Growth'."
+            "Optional topic tags shown in the side column, e.g. "
+            "'Mindset, Debugging, Logs, Growth'."
         ),
     )
     image = models.ImageField(
@@ -131,6 +157,11 @@ class Article(models.Model):
     def toc_items(self):
         """Section headings pulled straight out of `content`, in order."""
         return [strip_tags(h).strip() for h in SECTION_HEADING.findall(self.content or "")]
+
+    @property
+    def topics_display(self):
+        """Topic tags joined for display, e.g. 'Mindset, Debugging, Logs'."""
+        return ", ".join(tag.name for tag in self.topics.all())
 
     @property
     def hero_caption(self):

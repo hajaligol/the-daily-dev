@@ -73,6 +73,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.sitemaps",
 
+    "taggit",
+
     "newsroom",
     "articles",
 ]

@@ -1,7 +1,14 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
-from .models import Article
+from .models import Article, Category
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ("name", "slug")
+    search_fields = ("name",)
+    prepopulated_fields = {"slug": ("name",)}
 
 
 @admin.register(Article)
@@ -17,7 +24,7 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display_links = ("title",)
     list_editable = ("order", "is_published")
     list_filter = ("is_published", "category")
-    search_fields = ("title", "category", "excerpt", "topics")
+    search_fields = ("title", "category__name", "excerpt", "topics__name")
     prepopulated_fields = {"slug": ("title",)}
     ordering = ("order", "-created_at")
     readonly_fields = ("created_at", "updated_at", "image_preview")

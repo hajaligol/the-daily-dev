@@ -2,17 +2,18 @@ from django.core import mail
 from django.test import Client, TestCase, override_settings
 from django.urls import reverse
 
-from articles.models import Article
+from articles.models import Article, Category
 
 from .models import ContactMessage
 
 
 class IndexViewTests(TestCase):
     def setUp(self):
+        self.category = Category.objects.create(name="Testing", slug="testing")
         for i in range(5):
             Article.objects.create(
                 title=f"Article {i}",
-                category="Testing",
+                category=self.category,
                 excerpt="Excerpt",
                 image="articles/wizard-hat.webp",
                 image_alt="Alt text",
@@ -31,7 +32,7 @@ class IndexViewTests(TestCase):
     def test_index_excludes_unpublished_articles(self):
         Article.objects.create(
             title="Hidden Draft",
-            category="Testing",
+            category=self.category,
             excerpt="Excerpt",
             image="articles/wizard-hat.webp",
             image_alt="Alt text",
