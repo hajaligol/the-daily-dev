@@ -70,7 +70,7 @@ html {
 /* ==========================================================================
    1c. CUSTOM CURSOR
    ========================================================================== */
-body {
+/* body {
   cursor: url("../images/cursor-nib.svg") 13 1, auto;
 }
 
@@ -90,7 +90,7 @@ select,
 [onclick],
 [role="button"] {
   cursor: url("../images/cursor-magnifier.svg") 9 9, pointer;
-}
+} */
 
 body {
   background: #cfc7b3;
@@ -212,7 +212,7 @@ body {
   text-align: center;
   color: inherit;
   text-decoration: none;
-  cursor: url("../images/cursor-magnifier.svg") 9 9, pointer;
+  /* cursor: url("../images/cursor-magnifier.svg") 9 9, pointer; */
   transition: background-color .15s ease, color .15s ease;
 }
 
@@ -1438,7 +1438,7 @@ a.nav-link {
   display: block;
   padding: 10px 10px;
   margin: -10px;
-  cursor: url("../images/cursor-magnifier.svg") 9 9, pointer;
+  /* cursor: url("../images/cursor-magnifier.svg") 9 9, pointer; */
   transition: background-color .15s ease, color .15s ease;
 }
 
@@ -1981,7 +1981,7 @@ a.nav-link:focus-visible .nav-title {
   font-size: .8rem;
   border: 1.4px solid var(--ink);
   padding: 11px 18px;
-  cursor: url("../images/cursor-magnifier.svg") 9 9, pointer;
+  /* cursor: url("../images/cursor-magnifier.svg") 9 9, pointer; */
   border-radius: 0;
 }
 
