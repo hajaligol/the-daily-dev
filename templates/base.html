@@ -6,6 +6,7 @@
 <title>{% block title %}The Daily Dev{% endblock %}</title>
 <meta name="description" content="{% block meta_description %}The Daily Dev — a vintage-styled newspaper for developers: code, creativity, and community.{% endblock %}">
 <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+<link rel="icon" type="image/webp" href="{% static 'images/favicon.webp' %}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="The Daily Dev">
 <meta property="og:title" content="{% block og_title %}The Daily Dev{% endblock %}">
