@@ -1,4 +1,4 @@
-# The Daily Dev
+<img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/935d73f5-5816-4035-a68b-112220c03158" /># The Daily Dev
 
 A vintage-newspaper-themed developer blog built with Django. The public
 site is a multi-page, server-rendered newspaper: a blackletter masthead,
@@ -10,6 +10,8 @@ its production deployment path. The visual design — colors, typography,
 layout, illustrations, grain/foxing texture, custom cursors, and page
 transitions — is a fixed product requirement and was intentionally left
 untouched by the engineering work described below.
+
+![Screenshot](images/dd-homepage.png)
 
 ## Architecture
 
