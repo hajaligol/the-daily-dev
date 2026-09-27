@@ -1,4 +1,4 @@
-<img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/935d73f5-5816-4035-a68b-112220c03158" /># The Daily Dev
+# The Daily Dev
 
 A vintage-newspaper-themed developer blog built with Django. The public
 site is a multi-page, server-rendered newspaper: a blackletter masthead,
